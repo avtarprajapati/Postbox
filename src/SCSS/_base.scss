@@ -21,14 +21,20 @@ html {
   }
 }
 
-.container {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif, "Billabong";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
+@font-face{
+  font-family: "Billabong";
   font-style: normal;
   font-weight: normal;
-  // src: local("Billabong"), url("./Billabong.woff") format("woff");
+  src: url(./Billabong.woff);
+}
+
+.container {
+  font-family: "Billabong";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.title{
+  font-size: 50px;
+  text-align: center;
 }
