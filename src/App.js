@@ -1,6 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 // import "./SCSS/main.scss";
+import "./index.css";
 
 import { Home, Login, Register, Explore, Profile } from "./pages";
 import history from "./routes/history";

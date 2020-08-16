@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 export class Login extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid bg-grad-1 min-height">
         <div className="row">
-          <div className="col-md-6 pt-3 mx-auto text-center">
+          <div className="col-md-5 pt-3 mx-auto text-center">
             <div className="bg-light shadow-sm p-2 rounded-lg mt-5">
-              <div className="display-4 my-3">
-                Post<span className="text-danger">BOX</span>
+              <div className="display-4 mt-4 logo">
+                Postbox
               </div>
               <form className="p-3">
                 <input
@@ -28,23 +28,23 @@ export class Login extends Component {
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="btn btn-danger rounded-pill w-50 mb-2"
+                    className="btn bg-grad-1 border-0 text-light rounded-pill w-50 mb-2"
                   >
                     Log In
                   </button>
                   <hr className="my-3" />
                   <Link
                     to="/"
-                    className="btn btn-light text-secondary btn-sm w-100 mb-2 float-right text-decoration-none"
+                    className="btn btn-link text-secondary btn-sm w-100 mb-2 text-decoration-none"
                   >
                     Forgot password?
                   </Link>
-                  <button
-                    type="button"
-                    className="btn btn-sm w-100 btn-light text-secondary"
+                  <Link
+                    to="/register"
+                    className="btn btn-link btn-sm w-100 text-secondary text-decoration-none"
                   >
                     Dont have an account ? register here
-                  </button>
+                  </Link>
                 </div>
               </form>
             </div>
