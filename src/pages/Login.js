@@ -17,16 +17,16 @@ export class Login extends Component {
             </div>
           </div>
           <div className="col">
-            <form className="form">
+            <form className="form shadow p-3 bg-white rounded">
               <input
                 type="text"
-                className="form-control"
+                className="form-control p-3"
                 placeholder="Enter Email"
                 aria-label="Enter Email"
               />
               <input
                 type="password"
-                className="form-control"
+                className="form-control p-3"
                 placeholder="Enter Password"
                 aria-label="Enter Password"
               />
