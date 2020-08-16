@@ -1,6 +1,6 @@
 users=[
     {
-        _id:"484sd4g843ds65x4sodsdrd23",
+        _id:"484sd4g843ds65x4sodsdrd23"(auto-generated),
         name:"Dummy Person",
         email:"react@redux.com",
         dob:"99th December 2020",
@@ -13,24 +13,21 @@ users=[
 
 posts=[
     {
-        _id:"78984514g4s65x4sodsdrd23",
+        _id:"78984514g4s65x4sodsdrd23"(auto-generated),
         username:"Dummy person",
         user_id:"484sd4g843ds65x4sodsdrd23",
         title:"Getting Started",
         imgurl:"wwx///fffeje.jpg",
-        createdAt:"23/5/2020",
-        editedAt:"25/5/2020"
+        likedby:[{_id:"sfasfassf"},{_id:"y2375yg"}],
     },
 ]
 
 
 comments=[
     {
-        _id:"runeim54u068u94509u70",
+        _id:"runeim54u068u94509u70"(auto-generated),
         post_id:"78984514g4s65x4sodsdrd23",
-        user_id:"484sd4g843ds65x4sodsdrd23",
+        user_name:"484sd4g843ds65x4sodsdrd23",
         comment_body:"hello world",
-        createdAt:"23/5/2020",
-        editedAt:"25/5/2020",
     },
 ]
