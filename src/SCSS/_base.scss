@@ -4,6 +4,11 @@ $bp-large: 62.5em; //1000px
 $bp-medium: 50em; //800px
 $bp-small: 37.5em; //600px
 
+$primary: #f64f59;
+$secondary: #12c2e9;
+$tertiary: #c471ed;
+$bg: #f0f2f5;
+
 *,
 *::before,
 *::after {
@@ -28,11 +33,11 @@ html {
   src: url(./Billabong.woff) url(./Roboto-Regular.ttf);
 }
 
-.container {
+.App {
   font-family: "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
 }
 
 .title {
