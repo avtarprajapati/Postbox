@@ -22,14 +22,16 @@ html {
 }
 
 @font-face {
-  font-family: "Billabong", "Roboto";
+  font-family: "Billabong";
   font-style: normal;
   font-weight: normal;
-  src: url(./Billabong.woff) url(./Roboto-Regular.ttf);
+  src: url(./Billabong.woff);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .container {
-  font-family: "Roboto";
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
