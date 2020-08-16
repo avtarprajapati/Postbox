@@ -21,20 +21,22 @@ html {
   }
 }
 
-@font-face{
-  font-family: "Billabong";
+@font-face {
+  font-family: "Billabong", "Roboto";
   font-style: normal;
   font-weight: normal;
-  src: url(./Billabong.woff);
+  src: url(./Billabong.woff) url(./Roboto-Regular.ttf);
 }
 
 .container {
-  font-family: "Billabong";
+  font-family: "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
 }
 
-.title{
+.title {
   font-size: 50px;
   text-align: center;
+  font-family: "Billabong";
 }
