@@ -8,12 +8,11 @@ export class Register extends Component {
     name: "",
     email: "",
     password: "",
-    dob: "",
+    dob: ""
   };
 
   onFormRegister = (e) => {
     e.preventDefault();
-    // console.log(this.state);
     this.props.createUser(this.state);
   };
 
@@ -91,9 +90,4 @@ export class Register extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state);
-  return { user: state };
-}
-
-export default connect(mapStateToProps, { createUser })(Register);
+export default connect(null, { createUser })(Register);
