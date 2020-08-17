@@ -22,3 +22,18 @@ API = "https://postboxserver.herokuapp.com/api";
 "/edit-post" (post) = "Updating an existing post"
 
 "/remove-post" (post) = "Deleting an post"
+
+
+// comment endpoints
+
+"/add-comment" (post) = "Inserting a new comment"
+
+"/select-comment" (get) = "For getting a list of all comments"
+
+"/user-comment" (post) = "For getting a list of all comments of a single user {user_id}"
+
+"/post-comment" (post) = "For getting a list of all comments of a single post {post_id}"
+
+"/edit-comment" (post) = "Updating an existing comment"
+
+"/remove-comment" (post) = "Deleting an comment"
