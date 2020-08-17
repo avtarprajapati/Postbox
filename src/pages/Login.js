@@ -46,14 +46,8 @@ export class Login extends Component {
                   </button>
                   <hr className="my-3" />
                   <Link
-                    to="/"
-                    className="btn btn-link text-secondary btn-sm w-100 mb-2 text-decoration-none"
-                  >
-                    Forgot password?
-                  </Link>
-                  <Link
                     to="/register"
-                    className="btn btn-link btn-sm w-100 text-secondary text-decoration-none"
+                    className="btn btn-link btn-sm text-secondary text-decoration-none"
                   >
                     Dont have an account ? register here
                   </Link>

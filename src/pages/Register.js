@@ -76,7 +76,7 @@ export class Register extends Component {
                   <hr className="my-3" />
                   <Link
                     to="/login"
-                    className="btn btn-link btn-sm w-100 text-secondary text-decoration-none"
+                    className="btn btn-link btn-sm text-secondary text-decoration-none"
                   >
                     Already have an account ? login here
                   </Link>
