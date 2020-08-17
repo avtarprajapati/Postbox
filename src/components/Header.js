@@ -1,64 +1,41 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
 
 export class Title extends Component {
   render() {
     return (
-      <div className="container-fluid mt-2">
-        {/* <div className="title">
-          <div className="logo">Postbox</div>
-        </div> */}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            Postbox
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon" />
-          </button>
+      <div className="container-fluid p-0 bg-light shadow-sm">
+        <div className="container">
+        <div className="pos-f-t">
+          <nav className="navbar navbar-light">
+            <Link to="/" className="navbar-brand">PostBox</Link>
+            <button className="btn btn-light" data-toggle="modal" data-target="#exampleModal">
+              <i className="fa fa-bars"></i>
+            </button>
+          </nav>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav my-auto">
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  User Names
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">
-                    Profile
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    Log Out
-                  </a>
+
+          <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-sm modal-dialog-centered" role="document">
+              <div className="modal-content"> 
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalCenterTitle"><i className="fa fa-user-circle"></i> Avtar</h5>
+                <button type="button" className="btn btn-light btn-sm" data-dismiss="modal" aria-label="Close">
+                  <i className="fa fa-times text-danger"></i>
+                </button>
+              </div> 
+                <div className="modal-body p-2">
+                  <Link to="/" className="btn btn-light btn-lg w-100 mb-2" data-dismiss="modal">Profile</Link>
+                  <Link to="/" className="btn btn-light btn-lg w-100 mb-2" data-dismiss="modal">Posts</Link>
+                  <Link to="/" className="btn btn-light btn-lg w-100 mb-2" data-dismiss="modal">Discover</Link>
+                  <Link to="/" className="btn btn-light btn-lg text-danger w-100" data-dismiss="modal">Logout</Link>
                 </div>
-              </li>
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
+              </div>
+            </div>
           </div>
-        </nav>
+         
+        </div>
+        </div>
       </div>
     );
   }

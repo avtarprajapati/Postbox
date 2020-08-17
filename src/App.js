@@ -9,7 +9,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
       <Router history={history}>
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
@@ -19,7 +18,6 @@ function App() {
           <PrivateRoute exact path="/profile" component={Profile} />
         </Switch>
       </Router>
-    </div>
   );
 }
 
