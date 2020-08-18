@@ -3,5 +3,6 @@ import Explore from "./Explore";
 import Login from "./Login";
 import Register from "./Register";
 import Profile from "./Profile";
+import Upload from "./Upload";
 
-export { Home, Explore, Login, Register, Profile };
+export { Home, Explore, Login, Register, Profile, Upload };
