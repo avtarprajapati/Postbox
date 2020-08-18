@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export class Title extends Component {
   render() {
-    const imgurl = "https://avatars.dicebear.com/api/avataaars/7895.svg"
+    const imgurl = "https://avatars.dicebear.com/api/bottts/7895.svg"
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
         <div className="container">
