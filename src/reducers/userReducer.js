@@ -1,11 +1,14 @@
+import _ from "lodash";
 import { ADD_USER, All_USER } from "../actions/typeConfig";
 
-export default (state = [], action) => {
+const ININTAL_STATE = {};
+
+export default (state = ININTAL_STATE, action) => {
   switch (action.type) {
     case ADD_USER:
       return state;
     case All_USER:
-      return [...state, action.payload];
+      return _.mapKeys(action.payload, "_id");
     default:
       return state;
   }

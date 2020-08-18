@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import history from "../routes/history";
 
 export class Title extends Component {
@@ -8,6 +9,8 @@ export class Title extends Component {
     history.push("/");
   };
   render() {
+    const { currentUser } = this.props;
+    const imgurl = "https://avatars.dicebear.com/api/bottts/7895.svg";
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
         <div className="container">
@@ -34,52 +37,58 @@ export class Title extends Component {
               aria-hidden="true"
             >
               <div
-                className="modal-dialog modal-sm modal-dialog-centered"
+                className="modal-dialog modal-dialog-centered"
                 role="document"
               >
                 <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalCenterTitle">
-                      <i className="fa fa-user-circle"></i> Avtar
-                    </h5>
-                    <button
-                      type="button"
-                      className="btn btn-light btn-sm"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <i className="fa fa-times text-danger"></i>
-                    </button>
-                  </div>
-                  <div className="modal-body p-2">
-                    <Link
-                      to="/profile"
-                      className="btn btn-light btn-lg w-100 mb-2"
-                      data-dismiss="modal"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      to="/upload"
-                      className="btn btn-light btn-lg w-100 mb-2"
-                      data-dismiss="modal"
-                    >
-                      Upload Post
-                    </Link>
-                    <Link
-                      to="/explore"
-                      className="btn btn-light btn-lg w-100 mb-2"
-                      data-dismiss="modal"
-                    >
-                      Explore
-                    </Link>
-                    <button
-                      className="btn btn-light btn-lg text-danger w-100"
-                      data-dismiss="modal"
-                      onClick={this.onLogOut}
-                    >
-                      Logout
-                    </button>
+                  <div className="modal-body p-0">
+                    <div className="text-center p-2 row rounded">
+                      <div className="col-md-8 m-0">
+                        <img
+                          src={currentUser.imgurl}
+                          className="w-50 bg-grad-2 p-1 rounded-pill my-4"
+                          alt="Profile"
+                        />
+                        <div className="h3 mt-0 mb-4">
+                          {currentUser.name}
+                          <i className="fa fa-check-circle text-primary"></i>
+                        </div>
+                        {/* <hr className="my-3 bg-grad-2 pt-1 rounded" /> */}
+                      </div>
+                      <div className="col-md-4 m-0">
+                        <Link
+                          to="/profile"
+                          className="btn btn-light btn-lg w-100 mb-2"
+                          data-dismiss="modal"
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          to="/upload"
+                          className="btn btn-light btn-lg w-100 mb-2"
+                          data-dismiss="modal"
+                        >
+                          Upload Post
+                        </Link>
+                        <Link
+                          to="/explore"
+                          className="btn btn-light btn-lg w-100 mb-2"
+                          data-dismiss="modal"
+                        >
+                          Explore
+                        </Link>
+                        <button
+                          className="btn btn-light btn-lg text-danger w-100 mb-2"
+                          data-dismiss="modal"
+                          onClick={this.onLogOut}
+                        >
+                          Logout
+                        </button>
+                        <button className="btn btn-light" data-dismiss="modal">
+                          <i className="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -91,4 +100,11 @@ export class Title extends Component {
   }
 }
 
-export default Title;
+function mapStateToProps(state) {
+  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+  return {
+    currentUser: state.users[currentUser.userId]
+  };
+}
+
+export default connect(mapStateToProps)(Title);

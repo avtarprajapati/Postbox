@@ -8,7 +8,8 @@ export class Register extends Component {
     name: "",
     email: "",
     password: "",
-    dob: ""
+    dob: "",
+    imgurl:""
   };
 
   onFormRegister = (e) => {
@@ -31,7 +32,7 @@ export class Register extends Component {
                       className="form-control rounded-pill my-2"
                       placeholder="Full name"
                       value={this.state.name}
-                      onChange={(e) => this.setState({ name: e.target.value })}
+                      onChange={(e) => this.setState({ name: e.target.value , imgurl :`https://avatars.dicebear.com/api/bottts/${e.target.value}.svg`})}
                     />
                   </div>
                   <div className="col-md-6">
