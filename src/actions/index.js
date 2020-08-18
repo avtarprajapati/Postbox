@@ -28,20 +28,8 @@ export const createUser = ({ name, email, password, dob }) => async (
   history.push("/login");
 };
 
-export const verifyUser = ({ email, password }) => async (dispatch) => {
-  const response = await postBox.post("/verify-user", {
-    email,
-    password
-  });
-
-  const token = response.data.token;
-  const currentUser = JSON.stringify({
-    name: response.data.name,
-    userId: response.data._id
-  });
-  // set token in localStorage after verify user
-  window.localStorage.setItem("token", token);
-  window.localStorage.setItem("currentUser", currentUser);
+const allUser = () => async (dispatch) => {
+  const token = window.localStorage.getItem("token");
 
   const {
     data: { message: allUser }
@@ -55,5 +43,44 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
     type: All_USER,
     payload: allUser
   });
-  history.push("/");
+};
+
+export const verifyUser = ({ email, password }) => async (dispatch) => {
+  const response = await postBox.post("/verify-user", {
+    email,
+    password
+  });
+
+  const token = response.data.token;
+  const currentUser = JSON.stringify({
+    name: response.data.name,
+    userId: response.data._id
+  });
+
+  // set token in localStorage after verify user
+
+  window.localStorage.setItem("token", token);
+  window.localStorage.setItem("currentUser", currentUser);
+
+  if (response.data.status === "OK") {
+    // redirect to home page
+    dispatch(allUser());
+    // wait for response of all user get to home page below code
+    // const {
+    //   data: { message: allUser }
+    // } = await postBox.get("/select-user", {
+    //   headers: {
+    //     auth: token
+    //   }
+    // });
+
+    // dispatch({
+    //   type: All_USER,
+    //   payload: allUser
+    // });
+    history.push("/");
+  } else {
+    // TODO: Make ui to user know this
+    console.log("Not Login");
+  }
 };

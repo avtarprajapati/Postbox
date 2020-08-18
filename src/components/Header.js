@@ -5,11 +5,13 @@ import history from "../routes/history";
 
 export class Title extends Component {
   onLogOut = () => {
-    window.localStorage.clear();
+    window.localStorage.removeItem("token");
+    console.log("go to login");
     history.push("/");
   };
   render() {
     const { currentUser } = this.props;
+    if (!currentUser) return "please wait";
     const imgurl = "https://avatars.dicebear.com/api/bottts/7895.svg";
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
@@ -101,7 +103,9 @@ export class Title extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state.users);
   const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+
   return {
     currentUser: state.users[currentUser.userId]
   };
