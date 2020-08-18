@@ -2,9 +2,15 @@ import postBox from "../apis/postbox";
 import history from "../routes/history";
 import { ADD_USER, All_USER } from "./typeConfig";
 
-export const createUser = (values) => async (dispatch) => {
+export const createUser = ({ name, email, password, dob }) => async (
+  dispatch
+) => {
   const response = await postBox.post("/add-user", {
-    ...values,
+    name,
+    email,
+    password,
+    dob,
+    imgurl: `https://avatars.dicebear.com/api/bottts/${name}.svg`,
     following: [],
     follower: []
   });
