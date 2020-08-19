@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
+import FileUpload from "../components/FileUpload";
 
 export class Upload extends Component {
   render() {
-    return <Header />;
+    return (
+      <div>
+        <Header />
+        <FileUpload />
+      </div>
+    );
   }
 }
 
