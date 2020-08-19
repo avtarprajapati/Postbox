@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import useStorage from "../firebase/useStorage";
+import ProgressBar from "./ProgressBar";
 
 export class FileUpload extends Component {
   state = { file: null, url: "", error: "" };
 
   handleChange = (e) => {
     const selectedFile = e.target.files[0];
+
     const types = ["image/jpeg", "image/jpg", "image/png"];
+
     if (selectedFile && types.includes(selectedFile.type)) {
       this.setState({ file: selectedFile, error: "" });
     } else {
@@ -16,18 +18,25 @@ export class FileUpload extends Component {
       });
     }
   };
+
+  clearFile = () => {
+    this.setState({ file: null });
+  };
+
   render() {
     console.log(this.state.file);
+    const { file, error } = this.state;
     return (
-      <div>
+      <div className="container mt-5">
         <form>
           <label>
             <input type="file" onChange={this.handleChange} />
             <span>Upload</span>
           </label>
           <div className="output">
-            {this.state.file && <div>{this.state.file.name}</div>}
-            {this.state.error && <div>{this.state.error}</div>}
+            {error && <div className="text-danger">{error}</div>}
+            {file && <div>{file.name}</div>}
+            {file && <ProgressBar file={file} clearFile={this.clearFile} />}
           </div>
         </form>
       </div>
