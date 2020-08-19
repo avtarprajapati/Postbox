@@ -3,9 +3,7 @@ import Header from "../components/Header";
 
 export class Home extends Component {
   render() {
-    return (
-        <Header />
-    );
+    return <Header />;
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import Header from "../components/Header";
 
 export class Upload extends Component {
   render() {
-    return <div>Upload</div>;
+    return <Header />;
   }
 }
 
