@@ -28,7 +28,7 @@ export const createUser = ({ name, email, password, dob }) => async (
   history.push("/login");
 };
 
-const allUser = () => async (dispatch) => {
+export const allUser = () => async (dispatch) => {
   const token = window.localStorage.getItem("token");
 
   const {
