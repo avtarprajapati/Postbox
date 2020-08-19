@@ -27,7 +27,11 @@ export class Title extends Component {
       <div className="container-fluid p-0 bg-light shadow-sm">
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" to="/">
+            <Link
+              className="navbar-brand logo"
+              to="/"
+              style={{ fontSize: "1.5rem" }}
+            >
               Postbox
             </Link>
             <button
