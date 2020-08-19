@@ -2,15 +2,18 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "../routes/history";
+import { allUser } from "../actions/index";
 
 export class Title extends Component {
+  // componentDidMount() {
+  //   this.props.allUser();
+  // }
   onLogOut = () => {
     window.localStorage.removeItem("token");
     console.log("go to login");
     history.push("/");
   };
   render() {
-    console.log(this.props.currentUser);
     const { currentUser } = this.props;
     if (!currentUser) return "please wait";
 
@@ -80,7 +83,6 @@ export class Title extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.users);
   const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
   return {
@@ -88,4 +90,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Title);
+export default connect(mapStateToProps, { allUser })(Title);
