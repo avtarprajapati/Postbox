@@ -2,6 +2,8 @@ import postBox from "../apis/postbox";
 import history from "../routes/history";
 import { ADD_USER, All_USER } from "./typeConfig";
 
+// User
+
 export const createUser = ({ name, email, password, dob }) => async (
   dispatch
 ) => {
@@ -83,4 +85,21 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
     // TODO: Make ui to user know this
     console.log("Not Login");
   }
+};
+
+// Post
+export const createPost = ({ title, url }) => async (dispatch) => {
+  // username,user_id,title,imgurl,likeby:[]
+  // console.log();
+  const { name, userId } = JSON.parse(
+    window.localStorage.getItem("currentUser")
+  );
+  const response = await postBox("/add-post", {
+    username: name,
+    user_id: userId,
+    title,
+    imgurl: url,
+    likeby: []
+  });
+  console.log(response);
 };

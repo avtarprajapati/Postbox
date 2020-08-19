@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import useStorage from "../firebase/useStorage";
 
-function ProgressBar({ file, clearFile }) {
+function ProgressBar({ file, clearFile, upload }) {
   const { progress, url } = useStorage(file);
   useEffect(() => {
-    if (url) clearFile();
-  }, [url, file]);
+    if (url) {
+      upload(url);
+      clearFile();
+    }
+  }, [url, file, upload, clearFile]);
 
-  console.log(progress, url);
   return <div className="progress-bar" style={{ width: `${progress}%` }}></div>;
 }
 

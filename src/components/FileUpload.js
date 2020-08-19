@@ -10,6 +10,7 @@ export class FileUpload extends Component {
     const types = ["image/jpeg", "image/jpg", "image/png"];
 
     if (selectedFile && types.includes(selectedFile.type)) {
+      this.props.title(selectedFile.name);
       this.setState({ file: selectedFile, error: "" });
     } else {
       this.setState({
@@ -28,15 +29,21 @@ export class FileUpload extends Component {
     const { file, error } = this.state;
     return (
       <div className="container mt-5">
-        <form>
+        <form className="upload-form">
           <label>
             <input type="file" onChange={this.handleChange} />
-            <span>Upload</span>
+            <span>+</span>
           </label>
           <div className="output">
             {error && <div className="text-danger">{error}</div>}
             {file && <div>{file.name}</div>}
-            {file && <ProgressBar file={file} clearFile={this.clearFile} />}
+            {file && (
+              <ProgressBar
+                file={file}
+                clearFile={this.clearFile}
+                upload={this.props.upload}
+              />
+            )}
           </div>
         </form>
       </div>
