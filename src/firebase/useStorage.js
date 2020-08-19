@@ -18,8 +18,8 @@ const useStorage = (file) => {
         console.log("Error: ", err);
         setError(err);
       },
-      (compelete) => {
-        const imgUrl = storageRef.getDownloadURL();
+      async (compelete) => {
+        const imgUrl = await storageRef.getDownloadURL();
         setUrl(imgUrl);
       }
     );
