@@ -12,67 +12,38 @@ export class Title extends Component {
   render() {
     console.log(this.props.currentUser);
     const { currentUser } = this.props;
-    if (!currentUser) return "please wait";
+    if (!currentUser)
+      return (
+        <div className="text-center pt-5">
+          <div className="h2">Loading <i className="fa fa-spinner fa-spin"></i> </div>
+        </div>
+      );
 
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
         <div className="container">
-          <div className="pos-f-t">
-            <nav className="navbar navbar-light">
-              <Link to="/" className="navbar-brand">
-                PostBox
-              </Link>
-              <button
-                className="btn btn-light"
-                data-toggle="collapse"
-                data-target="#collapseExample"
-              >
-                <i className="fa fa-bars"></i>
-              </button>
-            </nav>
-
-            <div className="collapse" id="collapseExample">
-              <div className="p-2 row text-center">
-                <div className="col-md-3 m-0">
-                  <img
-                    src={currentUser.imgurl}
-                    className="w-50 bg-grad-2 p-1 rounded-pill shadow my-4"
-                    alt="Profile"
-                  />
-                  <div className="h3 mt-0 mb-4">
-                    {currentUser.name}
-                    <i className="fa fa-check-circle text-primary ml-1"></i>
-                  </div>
-                  {/* <hr className="my-3 bg-grad-2 pt-1 rounded" /> */}
-                </div>
-                <div className="col-md-6"></div>
-                <div className="col-md-3 m-0">
-                  <Link to="/profile" className="btn btn-light w-100 mb-2">
-                    Profile
-                  </Link>
-                  <Link to="/upload" className="btn btn-light w-100 mb-2">
-                    Upload
-                  </Link>
-                  <Link to="/explore" className="btn btn-light w-100 mb-2">
-                    Explore
-                  </Link>
-                  <button
-                    className="btn btn-light text-danger w-100 mb-2"
-                    onClick={this.onLogOut}
-                  >
-                    Logout
-                  </button>
-                  <button
-                    className="btn btn-light"
-                    data-toggle="collapse"
-                    data-target="#collapseExample"
-                  >
-                    <i className="fa fa-times"></i>
-                  </button>
-                </div>
-              </div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="#">Navbar</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Upload</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Logout</Link>
+                </li>
+              </ul>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
     );
@@ -84,7 +55,7 @@ function mapStateToProps(state) {
   const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
   return {
-    currentUser: state.users[currentUser.userId]
+    currentUser: state.users[currentUser.userId],
   };
 }
 
