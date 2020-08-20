@@ -1,6 +1,6 @@
 import postBox from "../apis/postbox";
 import history from "../routes/history";
-import { ADD_USER, All_USER } from "./typeConfig";
+import { ADD_USER, All_USER, SELECT_POSTS } from "./typeConfig";
 
 // User
 
@@ -84,6 +84,7 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
   } else {
     // TODO: Make ui to user know this
     console.log("Not Login");
+    history.push("/register");
   }
 };
 
@@ -94,12 +95,38 @@ export const createPost = ({ title, url }) => async (dispatch) => {
   const { name, userId } = JSON.parse(
     window.localStorage.getItem("currentUser")
   );
-  const response = await postBox("/add-post", {
-    username: name,
-    user_id: userId,
-    title,
-    imgurl: url,
-    likeby: []
-  });
+  const token = window.localStorage.getItem("token");
+  const response = await postBox.post(
+    "/add-post",
+    {
+      username: name,
+      user_id: userId,
+      title,
+      imgurl: url,
+      likeby: []
+    },
+    {
+      headers: {
+        auth: token
+      }
+    }
+  );
   console.log(response);
+};
+
+export const selectPosts = () => async (dispatch) => {
+  const { name, userId } = JSON.parse(
+    window.localStorage.getItem("currentUser")
+  );
+  const token = window.localStorage.getItem("token");
+  const response = await postBox.get("/select-post", {
+    headers: {
+      auth: token
+    }
+  });
+  // console.log(response.data.message);
+  dispatch({
+    type: SELECT_POSTS,
+    payload: response.data.message
+  });
 };
