@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "../components/Header";
 import { allUser, selectPosts } from "../actions";
+import Loading from "../components/Loading";
 
 export class Profile extends Component {
   componentDidMount() {
@@ -13,60 +14,64 @@ export class Profile extends Component {
     let { currentUser, currentUserPost } = this.props;
     // console.log(currentUser);
 
-    if (!currentUser) return "Please wait while fetching your details";
+    if (!currentUser) return <Loading />;
 
     return (
       <>
         <Header />
-        <div className="container mt-5">
-          <div className="row bg-light">
-            <div className="col-3 col-sm-5">
+        <div className="container py-5">
+          <div className="row">
+            <div className="col-md-3 pb-3 text-center">
               <img
                 src={currentUser.imgurl}
                 alt={`${currentUser.name}`}
-                style={{ width: "10rem", height: "10rem", borderRadius: "50%" }}
+                className="profile-pic bg-grad-1 rounded-pill p-1"
+                alt="profile-pic"
               />
             </div>
-            <div className="col-9 col-sm-7">
-              <h4 className="mt-5">{currentUser.name}</h4>
+            <div className="col-md-9 p-4">
+              <div className="display-4">{currentUser.name}</div>
               <Link
                 to="/edit-profile"
-                className="text-secondary w-100"
+                className="text-secondary small w-100 mb-4"
                 style={{ textDecoration: "none" }}
               >
                 Edit Profile
               </Link>
             </div>
-            <div className="row mx-auto" style={{ marginTop: "-2rem" }}>
-              <div className="col-4">
-                <span className="font-weight-bold mr-1">
-                  {currentUserPost.length}
-                </span>
-                Posts
-              </div>
-              <div className="col-4">
-                <span className="font-weight-bold mr-1">
-                  {currentUser.following.length}
-                </span>
-                Follower
-              </div>
-              <div className="col-4">
-                <span className="font-weight-bold mr-1">
-                  {currentUser.following.length}
-                </span>
-                Following
+            <div className="col-md-12 py-3">
+              <div className="btn-group w-100">
+                <button className="btn btn-light btn-sm">
+                  <span className="font-weight-bold mr-1">
+                    {currentUserPost.length}
+                  </span>
+                  Posts
+                </button>
+                <button className="btn btn-light btn-sm">
+                  <span className="font-weight-bold mr-1">
+                    {currentUser.following.length}
+                  </span>
+                  Follower
+                </button>
+                <button className="btn btn-light btn-sm">
+                  <span className="font-weight-bold mr-1">
+                    {currentUser.following.length}
+                  </span>
+                  Following
+                </button>
               </div>
             </div>
           </div>
-          <hr className="bg-grad-2" style={{ height: "1px" }} />
+
+          
           <div className="row">
             {currentUserPost.map((post) => (
-              <div
-                className="col-sm m-2"
-                key={post._id}
-                style={{ width: "20px", height: "20px" }}
-              >
-                <img src={post.imgurl} alt={post.title} className="w-100" />
+              <div className="col-4 m-0 p-1" key={post._id}>
+                <img
+                  src={post.imgurl}
+                  alt={post.title}
+                  className="w-100 rounded"
+                />
               </div>
             ))}
           </div>
@@ -86,7 +91,7 @@ function mapStateToProps(state) {
 
   return {
     currentUser: state.users[currentUser.userId],
-    currentUserPost
+    currentUserPost,
   };
 }
 

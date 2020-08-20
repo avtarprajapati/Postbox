@@ -73,3 +73,13 @@ label:hover {
   background: rgb(255, 148, 114);
   margin-top: 2rem;
 }
+
+.profile-pic{
+  width: 100%;
+}
+
+@media screen and (max-width:600px){
+  .profile-pic{
+    width: 50%;
+  }
+}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "../routes/history";
 import { allUser } from "../actions/index";
+import Loading from "./Loading";
 
 export class Title extends Component {
   componentDidMount() {
@@ -15,13 +16,7 @@ export class Title extends Component {
   render() {
     const { currentUser } = this.props;
     if (!currentUser)
-      return (
-        <div className="text-center pt-5">
-          <div className="h2">
-            Loading <i className="fa fa-spinner fa-spin"></i>
-          </div>
-        </div>
-      );
+      return (<Loading/>);
 
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
