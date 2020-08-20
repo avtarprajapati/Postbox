@@ -82,4 +82,7 @@ label:hover {
   .profile-pic{
     width: 50%;
   }
+  .profile-title{
+    text-align: center;
+  }
 }

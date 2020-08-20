@@ -6,10 +6,31 @@ import { allUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 
 export class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name:"",
+      email:"",
+      dob:"",
+      imgurl:"",
+      password:"",
+    };
+  }
+
   componentDidMount() {
     this.props.allUser();
     this.props.selectPosts();
   }
+
+  setEdit = (user) => {
+    this.setState({...user});
+  };
+
+  funChangeHandler=(e)=>{
+    this.setState({[e.target.name]:e.target.value});
+  }
+
   render() {
     let { currentUser, currentUserPost } = this.props;
     // console.log(currentUser);
@@ -17,7 +38,7 @@ export class Profile extends Component {
     if (!currentUser) return <Loading />;
 
     return (
-      <>
+      <React.Fragment>
         <Header />
         <div className="container py-5">
           <div className="row">
@@ -29,15 +50,18 @@ export class Profile extends Component {
                 alt="profile-pic"
               />
             </div>
-            <div className="col-md-9 p-4">
+            <div className="col-md-9 profile-title p-4">
               <div className="display-4">{currentUser.name}</div>
-              <Link
-                to="/edit-profile"
-                className="text-secondary small w-100 mb-4"
-                style={{ textDecoration: "none" }}
+              <button
+                data-toggle="modal"
+                data-target="#editModal"
+                className="btn btn-link btn-sm text-secondary text-decoration-none mb-4"
+                onClick={() => {
+                  this.setEdit(currentUser);
+                }}
               >
                 Edit Profile
-              </Link>
+              </button>
             </div>
             <div className="col-md-12 py-3">
               <div className="btn-group w-100">
@@ -63,7 +87,6 @@ export class Profile extends Component {
             </div>
           </div>
 
-          
           <div className="row">
             {currentUserPost.map((post) => (
               <div className="col-4 m-0 p-1" key={post._id}>
@@ -76,7 +99,78 @@ export class Profile extends Component {
             ))}
           </div>
         </div>
-      </>
+
+        {/* modals */}
+
+        <div className="modal fade" id="editModal" tabIndex="-1" role="dialog">
+          <div className="modal-dialog modal-dialog-scrollable" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                <h5 className="mb-4">Hey {this.state.name} !</h5>
+                <div className="text-center my-3">
+                  <img
+                    src={this.state.imgurl}
+                    className="w-50 bg-grad-1 rounded-pill p-1"
+                    alt="profile-pic"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className="form-control my-3"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.funChangeHandler}
+                  placeholder="Name"
+                />
+                <input
+                  type="text"
+                  className="form-control my-3"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.funChangeHandler}
+                  placeholder="Email"
+                />
+                <input
+                  type="date"
+                  className="form-control my-3"
+                  name="dob"
+                  value={this.state.dob}
+                  onChange={this.funChangeHandler}
+                  placeholder="DOB"
+                />
+                <input
+                  type="text"
+                  className="form-control p-1 my-3"
+                  name="imgurl"
+                  value={this.state.imgurl}
+                  onChange={this.funChangeHandler}
+                  placeholder="Img"
+                />
+                <input
+                  type="password"
+                  className="form-control my-3"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.funChangeHandler}
+                  placeholder="Password"
+                />
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
