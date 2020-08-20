@@ -14,5 +14,5 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const fireStorage = firebase.storage();
-export { fireStorage };
+export default firebase.storage().ref();
+// export { fireStorage };
