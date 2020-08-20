@@ -28,9 +28,8 @@ export class Title extends Component {
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link
-              className="navbar-brand logo"
+              className="h2 mb-0 mt-2 text-dark text-decoration-none logo"
               to="/"
-              style={{ fontSize: "1.5rem" }}
             >
               Postbox
             </Link>
@@ -39,9 +38,6 @@ export class Title extends Component {
               type="button"
               data-toggle="collapse"
               data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
             >
               <span className="navbar-toggler-icon"></span>
             </button>
