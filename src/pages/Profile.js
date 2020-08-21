@@ -2,19 +2,24 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "../components/Header";
-import { allUser, selectPosts } from "../actions";
+import { allUser, editUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
+import fireStorage from "../firebase/config";
 
 export class Profile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      _id: "",
       name: "",
       email: "",
       dob: "",
       imgurl: "",
-      password: ""
+      password: "",
+      file: null,
+      following: [],
+      follower: []
     };
   }
 
@@ -31,14 +36,51 @@ export class Profile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // onUpdateUser = ()=>{}
+  onUpdateUser = () => {
+    const { file } = this.state;
+
+    if (file) {
+      const newImage = fireStorage.child(file.name);
+      newImage.put(file).then(async (snap) => {
+        const url = await newImage.getDownloadURL();
+        this.setState({ imgurl: url });
+      });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      _id,
+      name,
+      email,
+      dob,
+      imgurl,
+      password,
+      following,
+      follower
+    } = this.state;
+
+    if (prevState.imgurl !== imgurl) {
+      console.log(imgurl);
+      this.props.editUser({
+        _id,
+        name,
+        email,
+        dob,
+        imgurl,
+        password,
+        following,
+        follower
+      });
+    }
+  }
 
   render() {
     let { currentUser, currentUserPost } = this.props;
     // console.log(currentUser);
 
     if (!currentUser) return <Loading />;
-
+    // console.log(this.state);
     return (
       <React.Fragment>
         <Header />
@@ -50,6 +92,7 @@ export class Profile extends Component {
                 alt={`${currentUser.name}`}
                 className="profile-pic bg-grad-1 rounded-pill p-1"
                 alt="profile-pic"
+                style={{ height: "80%" }}
               />
             </div>
             <div className="col-md-9 profile-title p-4">
@@ -141,11 +184,11 @@ export class Profile extends Component {
                   placeholder="DOB"
                 />
                 <input
-                  type="text"
+                  type="file"
                   className="form-control p-1 my-3"
                   name="imgurl"
-                  value={this.state.imgurl}
-                  onChange={this.funChangeHandler}
+                  // value={this.state.file}
+                  onChange={(e) => this.setState({ file: e.target.files[0] })}
                   placeholder="Img"
                 />
                 <input
@@ -168,7 +211,7 @@ export class Profile extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  // onClick={onUpdateUser}
+                  onClick={this.onUpdateUser}
                 >
                   Save changes
                 </button>
@@ -196,4 +239,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { allUser, selectPosts })(Profile);
+export default connect(mapStateToProps, { allUser, editUser, selectPosts })(
+  Profile
+);

@@ -50,18 +50,18 @@ export const allUser = () => async (dispatch) => {
 export const editUser = (upateValue) => async (dispatch) => {
   const token = window.localStorage.getItem("token");
 
-  const {
-    data: { message: allUser }
-  } = await postBox.get("/edit-user", upateValue, {
+  const response = await postBox.post("/edit-user", upateValue, {
     headers: {
       auth: token
     }
   });
 
-  dispatch({
-    type: EDIT_USER,
-    payload: allUser
-  });
+  dispatch(allUser());
+
+  // dispatch({
+  //   type: EDIT_USER,
+  //   payload: allUser
+  // });
 };
 
 export const verifyUser = ({ email, password }) => async (dispatch) => {
