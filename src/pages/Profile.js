@@ -86,6 +86,12 @@ export class Profile extends Component {
     if (!currentUser) return <Loading />;
 
     console.log(users);
+    let followersList = [];
+    followersList = currentUser.followers.map(
+      (followerId) => users[followerId]
+    );
+    console.log(followersList);
+
     return (
       <React.Fragment>
         <Header />
@@ -124,7 +130,7 @@ export class Profile extends Component {
                 <button
                   className="btn btn-light btn-sm"
                   data-toggle="modal"
-                  data-target="#followerModal"
+                  data-target="#followersModal"
                 >
                   <span className="font-weight-bold mr-1">
                     {currentUser.followers.length}
@@ -224,6 +230,30 @@ export class Profile extends Component {
                 >
                   Save changes
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="modal fade"
+          id="followersModal"
+          tabIndex="-1"
+          role="dialog"
+        >
+          <div className="modal-dialog modal-dialog-scrollable" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                <h5 className="mb-4 text-center">Followers</h5>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  &times;
+                </button>
+                <hr />
+                {/* Follower List of user */}
               </div>
             </div>
           </div>
