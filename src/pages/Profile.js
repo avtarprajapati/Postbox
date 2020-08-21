@@ -19,7 +19,7 @@ export class Profile extends Component {
       password: "",
       file: null,
       following: [],
-      follower: []
+      followers: []
     };
   }
 
@@ -57,7 +57,7 @@ export class Profile extends Component {
       imgurl,
       password,
       following,
-      follower
+      followers
     } = this.state;
 
     if (prevState.imgurl !== imgurl) {
@@ -70,17 +70,19 @@ export class Profile extends Component {
         imgurl,
         password,
         following,
-        follower
+        followers
       });
     }
   }
 
   render() {
-    let { currentUser, currentUserPost } = this.props;
-    // console.log(currentUser);
+    let { currentUser, currentUserPost, users } = this.props;
 
     if (!currentUser) return <Loading />;
-    // console.log(this.state);
+
+    console.log(currentUser);
+
+    console.log(users);
     return (
       <React.Fragment>
         <Header />
@@ -116,9 +118,13 @@ export class Profile extends Component {
                   </span>
                   Posts
                 </button>
-                <button className="btn btn-light btn-sm">
+                <button
+                  className="btn btn-light btn-sm"
+                  data-toggle="modal"
+                  data-target="#followerModal"
+                >
                   <span className="font-weight-bold mr-1">
-                    {currentUser.following.length}
+                    {currentUser.followers.length}
                   </span>
                   Follower
                 </button>
@@ -235,7 +241,8 @@ function mapStateToProps(state) {
 
   return {
     currentUser: state.users[currentUser.userId],
-    currentUserPost
+    currentUserPost,
+    users: state.users
   };
 }
 

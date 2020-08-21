@@ -14,7 +14,7 @@ export const createUser = ({ name, email, password, dob }) => async (
     dob,
     imgurl: `https://avatars.dicebear.com/api/bottts/${name}.svg`,
     following: [],
-    follower: []
+    followers: []
   });
 
   if (response.data.status !== "OK") {
