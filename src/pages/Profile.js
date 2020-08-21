@@ -60,8 +60,13 @@ export class Profile extends Component {
       followers
     } = this.state;
 
-    if (prevState.imgurl !== imgurl) {
-      console.log(imgurl);
+    if (
+      prevState.name !== name ||
+      prevState.email !== email ||
+      prevState.dob !== dob ||
+      prevState.imgurl !== imgurl ||
+      prevState.password !== password
+    ) {
       this.props.editUser({
         _id,
         name,
@@ -79,8 +84,6 @@ export class Profile extends Component {
     let { currentUser, currentUserPost, users } = this.props;
 
     if (!currentUser) return <Loading />;
-
-    console.log(currentUser);
 
     console.log(users);
     return (
