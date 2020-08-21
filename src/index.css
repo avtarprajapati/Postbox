@@ -35,26 +35,44 @@ body {
 }
 
 .profile-pic {
-  width: 100%;
+  width: 200px;
+  height: 200px;
 }
 
-.post {
-  width: 80%;
-  height: 300px;
-}
 .post-img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
+
+.postHolder {
+  column-count: 3;
+  column-gap: 10px;
+}
+
+.postCard{
+  width: 100%;
+  display: inline-block;
+  margin: 5px 0px;
+}
+
 @media screen and (max-width: 600px) {
   .profile-pic {
-    width: 50%;
+    width: 150px;
+    height: 150px;
   }
   .profile-title {
     text-align: center;
   }
-  .post {
-    width: 50%;
-    height: 50%;
+
+  .postHolder {
+    /* column-count: 3; */
+    column-gap: 6px;
   }
+  
+  .postCard{
+    width: 100%;
+    display: inline-block;
+    margin: 3px 0px;
+  }
+  
 }

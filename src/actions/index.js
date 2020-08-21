@@ -127,7 +127,9 @@ export const createPost = ({ title, url }) => async (dispatch) => {
         auth: token
       }
     }
-  );
+  ).then(()=>{
+    history.push("/profile");
+  })
   console.log(response);
 };
 

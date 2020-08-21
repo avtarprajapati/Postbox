@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "../components/Header";
 import { allUser, editUser, selectPosts } from "../actions";
@@ -100,10 +99,9 @@ export class Profile extends Component {
             <div className="col-md-3 pb-3 text-center">
               <img
                 src={currentUser.imgurl}
-                alt={`${currentUser.name}`}
+                // alt={`${currentUser.name}`}
                 className="profile-pic bg-grad-1 rounded-pill p-1"
                 alt="profile-pic"
-                style={{ height: "80%" }}
               />
             </div>
             <div className="col-md-9 profile-title p-4">
@@ -147,13 +145,13 @@ export class Profile extends Component {
             </div>
           </div>
 
-          <div className="row">
+          <div className="postHolder">
             {currentUserPost.map((post) => (
-              <div className="col-sm-4 m-0 p-1 post" key={post._id}>
+              <div className="postCard" key={post._id}>
                 <img
                   src={post.imgurl}
                   alt={post.title}
-                  className="w-100 rounded post-img"
+                  className="rounded post-img shadow-sm"
                 />
               </div>
             ))}
