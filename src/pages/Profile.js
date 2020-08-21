@@ -10,11 +10,11 @@ export class Profile extends Component {
     super(props);
 
     this.state = {
-      name:"",
-      email:"",
-      dob:"",
-      imgurl:"",
-      password:"",
+      name: "",
+      email: "",
+      dob: "",
+      imgurl: "",
+      password: ""
     };
   }
 
@@ -24,12 +24,14 @@ export class Profile extends Component {
   }
 
   setEdit = (user) => {
-    this.setState({...user});
+    this.setState({ ...user });
   };
 
-  funChangeHandler=(e)=>{
-    this.setState({[e.target.name]:e.target.value});
-  }
+  funChangeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  // onUpdateUser = ()=>{}
 
   render() {
     let { currentUser, currentUserPost } = this.props;
@@ -89,11 +91,11 @@ export class Profile extends Component {
 
           <div className="row">
             {currentUserPost.map((post) => (
-              <div className="col-4 m-0 p-1" key={post._id}>
+              <div className="col-sm-4 m-0 p-1 post" key={post._id}>
                 <img
                   src={post.imgurl}
                   alt={post.title}
-                  className="w-100 rounded"
+                  className="w-100 rounded post-img"
                 />
               </div>
             ))}
@@ -163,7 +165,11 @@ export class Profile extends Component {
                 >
                   Close
                 </button>
-                <button type="button" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  // onClick={onUpdateUser}
+                >
                   Save changes
                 </button>
               </div>
@@ -181,11 +187,12 @@ function mapStateToProps(state) {
   //currentUserPost
   const currentUserPost = Object.entries(state.posts)
     .filter(([key, value]) => value.user_id === currentUser.userId)
-    .map((post) => post[1]);
+    .map((post) => post[1])
+    .reverse();
 
   return {
     currentUser: state.users[currentUser.userId],
-    currentUserPost,
+    currentUserPost
   };
 }
 

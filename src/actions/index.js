@@ -1,6 +1,6 @@
 import postBox from "../apis/postbox";
 import history from "../routes/history";
-import { ADD_USER, All_USER, SELECT_POSTS } from "./typeConfig";
+import { ADD_USER, All_USER, SELECT_POSTS, EDIT_USER } from "./typeConfig";
 
 // User
 
@@ -43,6 +43,23 @@ export const allUser = () => async (dispatch) => {
 
   dispatch({
     type: All_USER,
+    payload: allUser
+  });
+};
+
+export const editUser = (upateValue) => async (dispatch) => {
+  const token = window.localStorage.getItem("token");
+
+  const {
+    data: { message: allUser }
+  } = await postBox.get("/edit-user", upateValue, {
+    headers: {
+      auth: token
+    }
+  });
+
+  dispatch({
+    type: EDIT_USER,
     payload: allUser
   });
 };
