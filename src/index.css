@@ -49,12 +49,15 @@ body {
   column-gap: 10px;
 }
 
-.postCard{
+.postCard {
   width: 100%;
   display: inline-block;
   margin: 5px 0px;
 }
 
+.type {
+  text-transform: capitalize;
+}
 @media screen and (max-width: 600px) {
   .profile-pic {
     width: 150px;
@@ -68,11 +71,10 @@ body {
     /* column-count: 3; */
     column-gap: 6px;
   }
-  
-  .postCard{
+
+  .postCard {
     width: 100%;
     display: inline-block;
     margin: 3px 0px;
   }
-  
 }

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { allUser, editUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import fireStorage from "../firebase/config";
+import UserListModal from "../components/UserListModal";
 
 export class Profile extends Component {
   constructor(props) {
@@ -64,7 +65,9 @@ export class Profile extends Component {
       prevState.email !== email ||
       prevState.dob !== dob ||
       prevState.imgurl !== imgurl ||
-      prevState.password !== password
+      prevState.password !== password ||
+      prevState.following !== following ||
+      prevState.followers !== followers
     ) {
       this.props.editUser({
         _id,
@@ -79,17 +82,47 @@ export class Profile extends Component {
     }
   }
 
+  updateFollow = (otherUserId) => {
+    const { currentUser, users } = this.props;
+
+    let otherUser = users[otherUserId];
+
+    let followingUser = currentUser.following.includes(otherUserId);
+
+    if (followingUser) {
+      this.props.editUser({
+        ...currentUser,
+        following: currentUser.following.filter((id) => id !== otherUserId)
+      });
+      this.props.editUser({
+        ...otherUser,
+        followers: otherUser.followers.filter((id) => id !== currentUser._id)
+      });
+    } else {
+      this.props.editUser({
+        ...currentUser,
+        following: [...currentUser.following, otherUserId]
+      });
+      this.props.editUser({
+        ...otherUser,
+        followers: [...otherUser.followers, currentUser._id]
+      });
+    }
+  };
+
   render() {
     let { currentUser, currentUserPost, users } = this.props;
 
     if (!currentUser) return <Loading />;
 
-    console.log(users);
     let followersList = [];
+    let followingList = [];
     followersList = currentUser.followers.map(
       (followerId) => users[followerId]
     );
-    console.log(followersList);
+    followingList = currentUser.following.map(
+      (followingId) => users[followingId]
+    );
 
     return (
       <React.Fragment>
@@ -99,7 +132,6 @@ export class Profile extends Component {
             <div className="col-md-3 pb-3 text-center">
               <img
                 src={currentUser.imgurl}
-                // alt={`${currentUser.name}`}
                 className="profile-pic bg-grad-1 rounded-pill p-1"
                 alt="profile-pic"
               />
@@ -129,13 +161,23 @@ export class Profile extends Component {
                   className="btn btn-light btn-sm"
                   data-toggle="modal"
                   data-target="#followersModal"
+                  onClick={() => {
+                    this.setEdit(currentUser);
+                  }}
                 >
                   <span className="font-weight-bold mr-1">
                     {currentUser.followers.length}
                   </span>
                   Follower
                 </button>
-                <button className="btn btn-light btn-sm">
+                <button
+                  className="btn btn-light btn-sm"
+                  data-toggle="modal"
+                  data-target="#followingModal"
+                  onClick={() => {
+                    this.setEdit(currentUser);
+                  }}
+                >
                   <span className="font-weight-bold mr-1">
                     {currentUser.following.length}
                   </span>
@@ -158,7 +200,7 @@ export class Profile extends Component {
           </div>
         </div>
 
-        {/* modals */}
+        {/* Edit Profile modals */}
 
         <div className="modal fade" id="editModal" tabIndex="-1" role="dialog">
           <div className="modal-dialog modal-dialog-scrollable" role="document">
@@ -200,7 +242,6 @@ export class Profile extends Component {
                   type="file"
                   className="form-control p-1 my-3"
                   name="imgurl"
-                  // value={this.state.file}
                   onChange={(e) => this.setState({ file: e.target.files[0] })}
                   placeholder="Img"
                 />
@@ -225,6 +266,7 @@ export class Profile extends Component {
                   type="button"
                   className="btn btn-primary"
                   onClick={this.onUpdateUser}
+                  data-dismiss="modal"
                 >
                   Save changes
                 </button>
@@ -233,29 +275,20 @@ export class Profile extends Component {
           </div>
         </div>
 
-        <div
-          className="modal fade"
-          id="followersModal"
-          tabIndex="-1"
-          role="dialog"
-        >
-          <div className="modal-dialog modal-dialog-scrollable" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
-                <h5 className="mb-4 text-center">Followers</h5>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  &times;
-                </button>
-                <hr />
-                {/* Follower List of user */}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Followers list Modal */}
+        <UserListModal
+          type="followers"
+          followersList={followersList}
+          followingList={followingList}
+          addRemoveId={this.updateFollow}
+        />
+        {/* Following list Modal */}
+        <UserListModal
+          type="following"
+          followersList={followersList}
+          followingList={followingList}
+          addRemoveId={this.updateFollow}
+        />
       </React.Fragment>
     );
   }
