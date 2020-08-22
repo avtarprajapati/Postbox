@@ -12,24 +12,28 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
       <div className="modal-dialog modal-dialog-scrollable" role="document">
         <div className="modal-content">
           <div className="modal-body">
-            <h5 className="mb-4 text-center type">{type}</h5>
-            <button
-              type="button"
-              className="btn btn-secondary float-right"
+            <h4 className="mb-2 mt-1 type">
+              {type}
+              <button
+              className="btn btn-danger float-right"
               data-dismiss="modal"
-            >
-              &times;
-            </button>
+              >
+              <i className="fa fa-times"></i>
+              </button>
+            </h4>
             <hr />
             {/* List of user */}
             <div>
               {active.map((user) => (
-                <div className="row" key={user._id}>
-                  <div className="col-md-4">
-                    <img src={user.imgurl} alt="profile-pic" />
+                <div className="row bg-light p-1 mb-3 mx-1 rounded shadow-sm" key={user._id}>
+                  <div className="col-9 m-0 p-0">
+                  <img src={user.imgurl} alt="user" className="mini-profile bg-grad-1 mr-2 rounded p-1" />
+                    <div className="d-inline-block h5 mt-1 mb-0">
+                      
+                      {user.name}
+                    </div>
                   </div>
-                  <div className="col-md-4">{user.name}</div>
-                  <div className="col-md-4">
+                  <div className="col-3 m-0 p-0 text-right">
                     <button
                       className={`btn btn-${
                         isFollowing(followingList, user._id)
@@ -39,8 +43,8 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
                       onClick={() => addRemoveId(user._id)}
                     >
                       {isFollowing(followingList, user._id)
-                        ? "Following"
-                        : "Follow"}
+                        ? (<i className="fa fa-check-circle fa-fw"></i>)
+                        : (<i className="fa fa-plus-circle fa-fw"></i>)}
                     </button>
                   </div>
                 </div>

@@ -39,6 +39,11 @@ body {
   height: 200px;
 }
 
+.mini-profile{
+  height: 35px;
+  width: 35px;
+}
+
 .post-img {
   width: 100%;
   height: auto;
