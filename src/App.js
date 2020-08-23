@@ -3,6 +3,10 @@ import { Router, Route, Switch } from "react-router-dom";
 // import "./SCSS/main.scss";
 import "./index.css";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import {
   Home,
   Login,
@@ -27,6 +31,7 @@ function App() {
         <PrivateRoute exact path="/upload" component={Upload} />
         <PrivateRoute exact path="/profile-view/:id" component={ProfileView} />
       </Switch>
+      <ToastContainer position="bottom-left"/>      
     </Router>
   );
 }

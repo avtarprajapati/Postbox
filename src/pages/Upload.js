@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Header from "../components/Header";
 import { createPost } from "../actions/index";
 import fireStorage from "../firebase/config";
+import { toast } from "react-toastify";
+
 
 export class Upload extends Component {
   state = { url: "", title: "", file: null };
@@ -22,6 +24,7 @@ export class Upload extends Component {
     const { file } = this.state;
     if (file) {
       const newImage = fireStorage.child(file.name);
+      toast.dark("Please wait, Upload in progress !");
       newImage.put(file).then((snap) => {
         newImage.getDownloadURL().then((url) => this.setState({ url: url }));
       });

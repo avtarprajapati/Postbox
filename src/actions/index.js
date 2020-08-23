@@ -2,6 +2,8 @@ import postBox from "../apis/postbox";
 import history from "../routes/history";
 import { ADD_USER, All_USER, SELECT_POSTS, EDIT_USER } from "./typeConfig";
 
+import { toast } from 'react-toastify';
+
 // User
 
 export const createUser = ({ name, email, password, dob }) => async (
@@ -98,10 +100,12 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
     //   payload: allUser
     // });
     history.push("/");
+    toast.dark('Welcome to Postbox '+response.data.name);
   } else {
     // TODO: Make ui to user know this
     console.log("Not Login");
     history.push("/register");
+    toast.error("User not Found!");
   }
 };
 
@@ -109,6 +113,7 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
 export const createPost = ({ title, url }) => async (dispatch) => {
   // username,user_id,title,imgurl,likeby:[]
   // console.log();
+
   const { name, userId } = JSON.parse(
     window.localStorage.getItem("currentUser")
   );
@@ -129,6 +134,7 @@ export const createPost = ({ title, url }) => async (dispatch) => {
     }
   ).then(()=>{
     history.push("/profile");
+    toast.success("Photo Uploaded!");
   })
   console.log(response);
 };
