@@ -23,8 +23,8 @@ export class Upload extends Component {
     console.log(this.state);
     const { file } = this.state;
     if (file) {
-      toast.dark("Please wait, Upload in progress !");
       const newImage = fireStorage.child(file.name);
+      toast.dark("Please wait, Upload in progress !");
       newImage.put(file).then((snap) => {
         newImage.getDownloadURL().then((url) => this.setState({ url: url }));
       });
