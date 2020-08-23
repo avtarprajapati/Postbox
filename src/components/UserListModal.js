@@ -28,23 +28,19 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
                 <div className="row bg-light p-1 mb-3 mx-1 rounded shadow-sm" key={user._id}>
                   <div className="col-9 m-0 p-0">
                   <img src={user.imgurl} alt="user" className="mini-profile bg-grad-1 mr-2 rounded p-1" />
-                    <div className="d-inline-block h5 mt-1 mb-0">
+                    <div className="btn btn-light btn-lg">
                       
                       {user.name}
                     </div>
                   </div>
                   <div className="col-3 m-0 p-0 text-right">
                     <button
-                      className={`btn btn-${
-                        isFollowing(followingList, user._id)
-                          ? "primary"
-                          : "secondary"
-                      }`}
+                      className="btn btn-light"
                       onClick={() => addRemoveId(user._id)}
                     >
                       {isFollowing(followingList, user._id)
-                        ? (<i className="fa fa-check-circle fa-fw"></i>)
-                        : (<i className="fa fa-plus-circle fa-fw"></i>)}
+                        ? (<i className="fa fa-check-circle fa-fw fa-2x text-primary"></i>)
+                        : (<i className="fa fa-plus-circle fa-fw fa-2x text-secondary"></i>)}
                     </button>
                   </div>
                 </div>

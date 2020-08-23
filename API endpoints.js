@@ -13,6 +13,8 @@ API = "https://postboxserver.herokuapp.com/api";
 
 "/verify-user" (post) = "For verifying whether an user exists or not using {email & password}"
 
+"/user-detail" (post) = "for getting full data of a single user using {_id}"
+
 // post endpoints
 
 "/add-post" (post) = "Inserting a new post"
