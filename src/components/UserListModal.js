@@ -12,6 +12,7 @@ const handleFollow = (id) => {
 };
 
 function UserListModal({ type, followersList, followingList, addRemoveId }) {
+  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
   const active = type === "followers" ? followersList : followingList;
 
   return (
@@ -51,16 +52,18 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
                     </button>
                   </div>
                   <div className="col-3 m-0 p-0 text-right">
-                    <button
-                      className="btn btn-light"
-                      onClick={() => addRemoveId(user._id)}
-                    >
-                      {isFollowing(followingList, user._id) ? (
-                        <i className="fa fa-check-circle fa-fw fa-2x text-primary"></i>
-                      ) : (
-                        <i className="fa fa-plus-circle fa-fw fa-2x text-secondary"></i>
-                      )}
-                    </button>
+                    {user._id !== currentUser.userId && (
+                      <button
+                        className="btn btn-light"
+                        onClick={() => addRemoveId(user._id)}
+                      >
+                        {isFollowing(followingList, user._id) ? (
+                          <i className="fa fa-check-circle fa-fw fa-2x text-primary"></i>
+                        ) : (
+                          <i className="fa fa-plus-circle fa-fw fa-2x text-secondary"></i>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
