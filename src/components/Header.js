@@ -9,11 +9,14 @@ export class Title extends Component {
   componentDidMount() {
     this.props.allUser();
   }
+
   onLogOut = () => {
     window.localStorage.removeItem("token");
     history.push("/");
   };
+  
   render() {
+    
     const { currentUser } = this.props;
     if (!currentUser)
       return (<Loading/>);
@@ -21,12 +24,12 @@ export class Title extends Component {
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light">
             <Link
-              className="h2 mb-0 mt-2 text-dark text-decoration-none logo"
+              className="h3 mb-0 text-dark text-decoration-none logo"
               to="/"
             >
-              Postbox
+              <span className="text-danger">Post</span>box
             </Link>
             <button
               className="navbar-toggler"

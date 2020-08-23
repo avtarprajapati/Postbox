@@ -18,7 +18,7 @@ export class Login extends Component {
         <div className="row">
           <div className="col-md-5 pt-3 mx-auto text-center">
             <div className="bg-light shadow-sm p-2 rounded-lg mt-5">
-              <div className="display-4 mt-4 logo">Postbox</div>
+              <div className="h1 mt-4 logo"><span className="text-danger">Post</span>box</div>
               <form className="p-3">
                 <input
                   type="text"
