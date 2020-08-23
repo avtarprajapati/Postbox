@@ -5,6 +5,12 @@ const isFollowing = (followingList, otherUserId) => {
   return followingList.map((user) => user._id).includes(otherUserId);
 };
 
+const handleFollow = (id) => {
+  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+  if (id === currentUser.userId) return history.push("/profile");
+  history.push(`/profile-view/${id}`);
+};
+
 function UserListModal({ type, followersList, followingList, addRemoveId }) {
   const active = type === "followers" ? followersList : followingList;
 
@@ -37,7 +43,7 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
                       className="mini-profile bg-grad-1 mr-2 rounded p-1"
                     />
                     <button
-                      onClick={(e) => history.push(`/profile-view/${user._id}`)}
+                      onClick={(e) => handleFollow(user._id)}
                       className="btn btn-light btn-lg text-decoration:none"
                       data-dismiss="modal"
                     >
