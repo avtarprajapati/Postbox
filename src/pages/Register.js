@@ -22,7 +22,9 @@ export class Register extends Component {
         <div className="row">
           <div className="col-md-7 pt-3 mx-auto text-center">
             <div className="bg-light shadow-sm p-2 rounded-lg mt-5">
-            <div className="h1 mt-4 logo"><span className="text-danger">Post</span>box</div>
+              <div className="h1 mt-4 logo">
+                <span className="text-danger">Post</span>box
+              </div>
               <form className="p-3">
                 <div className="row m-0 p-0">
                   <div className="col-md-12">
@@ -33,8 +35,7 @@ export class Register extends Component {
                       value={this.state.name}
                       onChange={(e) =>
                         this.setState({
-                          name: e.target.value,
-                          imgurl: `https://avatars.dicebear.com/api/bottts/${e.target.value}.svg`
+                          name: e.target.value
                         })
                       }
                     />

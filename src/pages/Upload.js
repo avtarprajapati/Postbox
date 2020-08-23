@@ -5,22 +5,18 @@ import { createPost } from "../actions/index";
 import fireStorage from "../firebase/config";
 import { toast } from "react-toastify";
 
-
 export class Upload extends Component {
   state = { url: "", title: "", file: null };
 
   componentDidUpdate() {
     const { url, title } = this.state;
     if (url && title) {
-      console.log('updating');
       this.props.createPost({ url, title });
-      console.log(title, url);
     }
   }
 
   onUpload = (e) => {
     e.preventDefault();
-    console.log(this.state);
     const { file } = this.state;
     if (file) {
       const newImage = fireStorage.child(file.name);
@@ -33,7 +29,6 @@ export class Upload extends Component {
 
   onFileSelect = (e) => {
     this.setState({ file: e.target.files[0] });
-    console.log(e.target.files[0]);
   };
 
   render() {
@@ -47,18 +42,14 @@ export class Upload extends Component {
               <div className="h2">Create Post</div>
               <hr className="bg-light mb-3" />
               <form>
-                <div className="mt-3 h5">
-                  Title
-                </div>
+                <div className="mt-3 h5">Title</div>
                 <input
                   type="text"
                   className="form-control my-3"
                   value={this.state.title}
                   onChange={(e) => this.setState({ title: e.target.value })}
                 />
-                <div className="mt-3 h5">
-                  Image
-                </div>
+                <div className="mt-3 h5">Image</div>
                 <input
                   type="file"
                   className="form-control my-3 p-1"
@@ -66,10 +57,7 @@ export class Upload extends Component {
                   // value={this.state.file.name}
                   onChange={this.onFileSelect}
                 />
-                <button
-                  className="btn btn-light my-3"
-                  onClick={this.onUpload}
-                >
+                <button className="btn btn-light my-3" onClick={this.onUpload}>
                   Upload
                 </button>
               </form>

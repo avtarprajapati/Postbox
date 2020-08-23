@@ -1,8 +1,8 @@
 import postBox from "../apis/postbox";
 import history from "../routes/history";
-import { ADD_USER, All_USER, SELECT_POSTS, EDIT_USER } from "./typeConfig";
+import { ADD_USER, All_USER, SELECT_POSTS } from "./typeConfig";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 // User
 
@@ -22,8 +22,6 @@ export const createUser = ({ name, email, password, dob }) => async (
   if (response.data.status !== "OK") {
     console.log("Please try again");
   }
-
-  // const allUser = await postBox.get('/select-user')
 
   dispatch({
     type: ADD_USER
@@ -52,18 +50,13 @@ export const allUser = () => async (dispatch) => {
 export const editUser = (upateValue) => async (dispatch) => {
   const token = window.localStorage.getItem("token");
 
-  const response = await postBox.post("/edit-user", upateValue, {
+  await postBox.post("/edit-user", upateValue, {
     headers: {
       auth: token
     }
   });
 
   dispatch(allUser());
-
-  // dispatch({
-  //   type: EDIT_USER,
-  //   payload: allUser
-  // });
 };
 
 export const verifyUser = ({ email, password }) => async (dispatch) => {
@@ -84,26 +77,12 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
   window.localStorage.setItem("currentUser", currentUser);
 
   if (response.data.status === "OK") {
-    // redirect to home page
     dispatch(allUser());
-    // wait for response of all user get to home page below code
-    // const {
-    //   data: { message: allUser }
-    // } = await postBox.get("/select-user", {
-    //   headers: {
-    //     auth: token
-    //   }
-    // });
 
-    // dispatch({
-    //   type: All_USER,
-    //   payload: allUser
-    // });
     history.push("/");
-    toast.dark('Welcome to Postbox '+response.data.name);
+    toast.dark("Welcome to Postbox " + response.data.name);
   } else {
     // TODO: Make ui to user know this
-    console.log("Not Login");
     history.push("/register");
     toast.error("User not Found!");
   }
@@ -111,45 +90,40 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
 
 // Post
 export const createPost = ({ title, url }) => async (dispatch) => {
-  // username,user_id,title,imgurl,likeby:[]
-  // console.log();
-
   const { name, userId } = JSON.parse(
     window.localStorage.getItem("currentUser")
   );
   const token = window.localStorage.getItem("token");
-  const response = await postBox.post(
-    "/add-post",
-    {
-      username: name,
-      user_id: userId,
-      title,
-      imgurl: url,
-      likeby: []
-    },
-    {
-      headers: {
-        auth: token
+  await postBox
+    .post(
+      "/add-post",
+      {
+        username: name,
+        user_id: userId,
+        title,
+        imgurl: url,
+        likeby: []
+      },
+      {
+        headers: {
+          auth: token
+        }
       }
-    }
-  ).then(()=>{
-    history.push("/profile");
-    toast.success("Photo Uploaded!");
-  })
-  console.log(response);
+    )
+    .then(() => {
+      history.push("/profile");
+      toast.success("Photo Uploaded!");
+    });
 };
 
 export const selectPosts = () => async (dispatch) => {
-  const { name, userId } = JSON.parse(
-    window.localStorage.getItem("currentUser")
-  );
   const token = window.localStorage.getItem("token");
   const response = await postBox.get("/select-post", {
     headers: {
       auth: token
     }
   });
-  // console.log(response.data.message);
+
   dispatch({
     type: SELECT_POSTS,
     payload: response.data.message
