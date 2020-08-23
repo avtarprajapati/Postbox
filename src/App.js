@@ -14,7 +14,7 @@ import {
   Explore,
   Profile,
   Upload,
-  EditProfile
+  ProfileView
 } from "./pages";
 import history from "./routes/history";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -28,8 +28,8 @@ function App() {
         <Route exact path="/register" component={Register} />
         <PrivateRoute exact path="/explore" component={Explore} />
         <PrivateRoute exact path="/profile" component={Profile} />
-        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
         <PrivateRoute exact path="/upload" component={Upload} />
+        <PrivateRoute exact path="/profile-view/:id" component={ProfileView} />
       </Switch>
       <ToastContainer position="bottom-left"/>      
     </Router>
