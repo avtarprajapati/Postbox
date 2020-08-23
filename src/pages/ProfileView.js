@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import Header from "../components/Header";
 import { allUser, editUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
-import fireStorage from "../firebase/config";
 import UserListModal from "../components/UserListModal";
 
 export class ProfileView extends Component {
   componentDidMount() {
     this.props.allUser();
+    this.props.selectPosts();
   }
 
   updateFollow = (otherUserId) => {
@@ -17,41 +17,38 @@ export class ProfileView extends Component {
     let otherUser = users[otherUserId];
 
     let followingUser = currentUser.following.includes(otherUserId);
-
-    if (followingUser) {
-      this.props.editUser({
-        ...currentUser,
-        following: currentUser.following.filter((id) => id !== otherUserId)
-      });
-      this.props.editUser({
-        ...otherUser,
-        followers: otherUser.followers.filter((id) => id !== currentUser._id)
-      });
-    } else {
-      this.props.editUser({
-        ...currentUser,
-        following: [...currentUser.following, otherUserId]
-      });
-      this.props.editUser({
-        ...otherUser,
-        followers: [...otherUser.followers, currentUser._id]
-      });
+    if (currentUser._id !== otherUser._id) {
+      if (followingUser) {
+        this.props.editUser({
+          ...currentUser,
+          following: currentUser.following.filter((id) => id !== otherUserId)
+        });
+        this.props.editUser({
+          ...otherUser,
+          followers: otherUser.followers.filter((id) => id !== currentUser._id)
+        });
+      } else {
+        this.props.editUser({
+          ...currentUser,
+          following: [...currentUser.following, otherUserId]
+        });
+        this.props.editUser({
+          ...otherUser,
+          followers: [...otherUser.followers, currentUser._id]
+        });
+      }
     }
   };
 
   render() {
-    let { currentUser, currentUserPost, users } = this.props;
+    const { viewUser, viewUserPost, users, currentUser } = this.props;
 
-    if (!currentUser) return <Loading />;
+    if (!viewUser || !currentUser) return <Loading />;
 
     let followersList = [];
     let followingList = [];
-    followersList = currentUser.followers.map(
-      (followerId) => users[followerId]
-    );
-    followingList = currentUser.following.map(
-      (followingId) => users[followingId]
-    );
+    followersList = viewUser.followers.map((followerId) => users[followerId]);
+    followingList = viewUser.following.map((followingId) => users[followingId]);
 
     return (
       <React.Fragment>
@@ -60,20 +57,22 @@ export class ProfileView extends Component {
           <div className="row">
             <div className="col-md-3 pb-3 text-center">
               <img
-                src={currentUser.imgurl}
+                src={viewUser.imgurl}
                 className="profile-pic bg-grad-1 rounded-pill p-1"
                 alt="profile-pic"
               />
             </div>
             <div className="col-md-9 profile-title p-4">
-              <div className="display-4">{currentUser.name}</div>
-              <button className="btn btn-primary">Follow</button>
+              <div className="display-4">{viewUser.name}</div>
+              <button className="btn btn-link btn-sm text-secondary text-decoration-none mb-4">
+                Follow
+              </button>
             </div>
             <div className="col-md-12 py-3">
               <div className="btn-group w-100">
                 <button className="btn btn-light btn-sm">
                   <span className="font-weight-bold mr-1">
-                    {/* {currentUserPost.length} */}
+                    {viewUserPost.length}
                   </span>
                   Posts
                 </button>
@@ -81,12 +80,9 @@ export class ProfileView extends Component {
                   className="btn btn-light btn-sm"
                   data-toggle="modal"
                   data-target="#followersModal"
-                  onClick={() => {
-                    // this.setEdit(currentUser);
-                  }}
                 >
                   <span className="font-weight-bold mr-1">
-                    {/* {currentUser.followers.length} */}
+                    {viewUser.followers.length}
                   </span>
                   Follower
                 </button>
@@ -94,12 +90,9 @@ export class ProfileView extends Component {
                   className="btn btn-light btn-sm"
                   data-toggle="modal"
                   data-target="#followingModal"
-                  onClick={() => {
-                    // this.setEdit(currentUser);
-                  }}
                 >
                   <span className="font-weight-bold mr-1">
-                    {/* {currentUser.following.length} */}
+                    {viewUser.following.length}
                   </span>
                   Following
                 </button>
@@ -108,7 +101,7 @@ export class ProfileView extends Component {
           </div>
 
           <div className="postHolder">
-            {currentUserPost.map((post) => (
+            {viewUserPost.map((post) => (
               <div className="postCard" key={post._id}>
                 <img
                   src={post.imgurl}
@@ -119,7 +112,6 @@ export class ProfileView extends Component {
             ))}
           </div>
         </div>
-
         {/* Followers list Modal */}
         <UserListModal
           type="followers"
@@ -139,20 +131,28 @@ export class ProfileView extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  //   const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-  //   //currentUserPost
-  //   const currentUserPost = Object.entries(state.posts)
-  //     .filter(([key, value]) => value.user_id === currentUser.userId)
-  //     .map((post) => post[1])
-  //     .reverse();
-  //   return {
-  //     currentUser: state.users[currentUser.userId],
-  //     currentUserPost,
-  //     users: state.users
-  //   };
+function mapStateToProps(state, ownProps) {
+  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+  const { id } = ownProps.match.params;
+
+  let viewUser = state.users[id];
+
+  //viewUserPost
+  const viewUserPost = Object.entries(state.posts)
+    .filter(([key, value]) => value.user_id === id)
+    .map((post) => post[1])
+    .reverse();
+
+  return {
+    users: state.users,
+    viewUser,
+    viewUserPost,
+    currentUser: state.users[currentUser.userId]
+  };
 }
 
-export default connect(mapStateToProps, { allUser, editUser, selectPosts })(
-  ProfileView
-);
+export default connect(mapStateToProps, {
+  allUser,
+  selectPosts,
+  editUser
+})(ProfileView);
