@@ -14,12 +14,10 @@ export class Title extends Component {
     window.localStorage.removeItem("token");
     history.push("/");
   };
-  
+
   render() {
-    
     const { currentUser } = this.props;
-    if (!currentUser)
-      return (<Loading/>);
+    if (!currentUser) return <Loading />;
 
     return (
       <div className="container-fluid p-0 bg-light shadow-sm">
@@ -44,6 +42,11 @@ export class Title extends Component {
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
                     Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/explore">
+                    Explore
                   </Link>
                 </li>
                 <li className="nav-item">
