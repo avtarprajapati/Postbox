@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { allUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
-import ImamgeCard from "../components/ImageCard";
+import ImageCard from "../components/ImageCard";
 
 export class Home extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ export class Home extends Component {
           <div className="h4 mb-5 text-secondary text-center">Recent Posts</div>
           <div className="postHolder pb-4">
             {followingListInfo.map((post) => (
-              <ImamgeCard post={post} key={post._id} />
+              <ImageCard post={post} key={post._id} />
             ))}
           </div>
         </div>
