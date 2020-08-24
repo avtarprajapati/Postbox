@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { allUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
+import ImamgeCard from "../components/ImageCard";
 
 export class Home extends Component {
   componentDidMount() {
@@ -21,26 +22,11 @@ export class Home extends Component {
           <div className="h4 mb-5 text-secondary text-center">Recent Posts</div>
           <div className="postHolder pb-4">
             {followingListInfo.map((post) => (
-              <div className="postCard card border-0" key={post._id}>
-
-                <div className="card-title px-2 small my-1">
-                  <i className="fa fa-user-circle"></i> {post.username}
-                </div>
-                <img
-                  src={post.imgurl}
-                  alt={post.title}
-                  className="post-img rounded"
-                />
-                <div className="card-title px-2 my-1">
-                  <i className="fa fa-heart-o fa-fw mr-2"></i>
-                  <i className="fa fa-comment-o fa-fw mr-2"></i>
-                  <i className="fa fa-share fa-fw mr-2"></i>
-                </div>
-              </div>
+              <ImamgeCard post={post} key={post._id} />
             ))}
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </React.Fragment>
     );
   }
