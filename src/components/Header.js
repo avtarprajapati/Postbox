@@ -54,15 +54,41 @@ export class Title extends Component {
                     Upload
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/profile">
-                    Profile
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/" onClick={this.onLogOut}>
-                    Logout
-                  </Link>
+
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {currentUser.name}
+                    <img
+                      src={currentUser.imgurl}
+                      alt="profile-pic"
+                      className="bg-grad-1 rounded-pill mb-1 p-1 ml-2 mr-1"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </a>
+                  <div
+                    className="dropdown-menu dropdown-menu-right shadow-sm border-0"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <li className="dropdown-item">
+                      <Link className="nav-link" to="/profile">
+                        <i className="fa fa-user-circle mr-2"></i>Profile
+                      </Link>
+                    </li>
+                    <li className="dropdown-item">
+                      <Link className="nav-link" to="/" onClick={this.onLogOut}>
+                        <i className="fa fa-power-off text-danger mr-2"></i>
+                        Logout
+                      </Link>
+                    </li>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -76,7 +102,7 @@ export class Title extends Component {
 function mapStateToProps(state) {
   const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
   return {
-    currentUser: state.users[currentUser.userId]
+    currentUser: state.users[currentUser.userId],
   };
 }
 

@@ -16,11 +16,11 @@ export class Card extends Component {
 
     return (
       <div className="postCard card border-0">
-        <div className="px-2 my-1">
+        <div className="px-2 my-1 small">
           <img
             src={userDetail.imgurl}
             alt="profile-pic"
-            className="bg-grad-2 rounded-pill mb-1 p-1 mr-2"
+            className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
             style={{ width: "25px", height: "25px" }}
           />
           {post.username}
