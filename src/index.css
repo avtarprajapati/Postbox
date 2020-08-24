@@ -58,6 +58,8 @@ body {
 
 .postCard {
   width: 100%;
+  /* max-height: 80vh; */
+  overflow: hidden;
   display: inline-block;
   margin: 5px 0px;
 }
@@ -74,14 +76,20 @@ body {
     text-align: center;
   }
 
+  .post-img {
+    width: 100%;
+    max-height: 85vh;
+  }
+
   .postHolder {
-    /* column-count: 3; */
-    column-gap: 6px;
+    column-count: 1;
+    column-gap: 0px;
   }
 
   .postCard {
     width: 100%;
+    /* max-height: 80vh; */
+    overflow: hidden;
     display: inline-block;
-    margin: 3px 0px;
   }
 }

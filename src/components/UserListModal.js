@@ -45,7 +45,7 @@ function UserListModal({ type, followersList, followingList, addRemoveId }) {
                     />
                     <button
                       onClick={(e) => handleFollow(user._id)}
-                      className="btn btn-light btn-lg text-decoration:none"
+                      className="btn btn-light btn-lg text-decoration-none"
                       data-dismiss="modal"
                     >
                       {user.name}

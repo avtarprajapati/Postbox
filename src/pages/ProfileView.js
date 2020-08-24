@@ -53,7 +53,7 @@ export class ProfileView extends Component {
     return (
       <React.Fragment>
         <Header />
-        <div className="container py-5">
+        <div className="container py-5 min-height">
           <div className="row">
             <div className="col-md-3 pb-3 text-center">
               <img

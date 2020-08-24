@@ -26,7 +26,7 @@ export class Title extends Component {
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light">
             <Link
-              className="h3 mb-0 text-dark text-decoration-none logo"
+              className="h3 mb-0 mt-1 text-dark text-decoration-none logo"
               to="/"
             >
               <span className="text-danger">Post</span>box

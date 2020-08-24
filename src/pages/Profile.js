@@ -127,7 +127,7 @@ export class Profile extends Component {
     return (
       <React.Fragment>
         <Header />
-        <div className="container py-5">
+        <div className="container py-5 min-height">
           <div className="row">
             <div className="col-md-3 pb-3 text-center">
               <img
@@ -189,11 +189,11 @@ export class Profile extends Component {
 
           <div className="postHolder">
             {currentUserPost.map((post) => (
-              <div className="postCard" key={post._id}>
+              <div className="postCard rounded" key={post._id}>
                 <img
                   src={post.imgurl}
                   alt={post.title}
-                  className="rounded post-img shadow-sm"
+                  className="post-img shadow-sm"
                 />
               </div>
             ))}
