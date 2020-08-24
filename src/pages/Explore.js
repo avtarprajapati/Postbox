@@ -41,7 +41,11 @@ function mapStateToProps(state) {
   currentUser = state.users[currentUser.userId];
   if (currentUser && currentUser.following) {
     var PostListInfo = Object.entries(state.posts)
-      .filter(([key, value]) => !currentUser.following.includes(value.user_id))
+      .filter(
+        ([key, value]) =>
+          !currentUser.following.includes(value.user_id) &&
+          value.user_id !== currentUser._id
+      )
       .map((userPost) => userPost[1])
       .reverse();
   }
