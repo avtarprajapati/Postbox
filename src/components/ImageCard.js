@@ -12,21 +12,33 @@ export class Card extends Component {
     const { post, userDetail } = this.props;
     if (!post && !userDetail) return <Loading />;
 
+    const postdate = new Date(post.createdAt);
+
     return (
       <div className="postCard card border-0">
-        <div className="card-title px-2 small my-1">
+        <div className="px-2 my-1">
           <img
             src={userDetail.imgurl}
             alt="profile-pic"
-            style={{ width: "20px", height: "20px" }}
+            className="bg-grad-2 rounded-pill mb-1 p-1 mr-2"
+            style={{ width: "25px", height: "25px" }}
           />
-          <span className="bold">{post.username}</span>
+          {post.username}
         </div>
         <img src={post.imgurl} alt={post.title} className="post-img rounded" />
-        <div className="card-title px-2 my-1">
-          <i className="fa fa-heart-o fa-fw mr-2"></i>
-          <i className="fa fa-comment-o fa-fw mr-2"></i>
-          <i className="fa fa-share fa-fw mr-2"></i>
+        <div className="px-2">
+          <div className="mt-2">
+            <i className="fa fa-heart-o fa-fw mr-2"></i>
+            <i className="fa fa-comment-o fa-fw mr-2"></i>
+            <i className="fa fa-bookmark-o fa-fw float-right"></i>
+          </div>
+          <div className="mt-1 small">
+            <span className="font-weight-bold mr-2">{post.username}</span>
+            {post.title}
+          </div>
+          <div className="mt-1 mb-3 text-muted small">
+            {postdate.toDateString()}
+          </div>
         </div>
       </div>
     );
@@ -36,7 +48,7 @@ export class Card extends Component {
 function mapStateToProps(state, ownProps) {
   const { user_id } = ownProps.post;
   return {
-    userDetail: state.users[user_id]
+    userDetail: state.users[user_id],
   };
 }
 

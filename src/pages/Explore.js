@@ -21,7 +21,7 @@ export class Explore extends Component {
         <Header />
         <div className="container py-5 min-height">
           <div className="h4 mb-5 text-secondary text-center">
-            Explore Posts
+            Explore Postbox
           </div>
           <div className="postHolder pb-4">
             {PostListInfo.map((post) => (
