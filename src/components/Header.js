@@ -56,11 +56,9 @@ export class Title extends Component {
                 </li>
 
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="#"
                     id="navbarDropdownMenuLink"
-                    role="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
@@ -72,7 +70,7 @@ export class Title extends Component {
                       className="bg-grad-1 rounded-pill mb-1 p-1 ml-2 mr-1"
                       style={{ width: "20px", height: "20px" }}
                     />
-                  </a>
+                  </Link>
                   <div
                     className="dropdown-menu dropdown-menu-right shadow-sm border-0"
                     aria-labelledby="navbarDropdownMenuLink"
