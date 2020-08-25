@@ -51,6 +51,10 @@ body {
   height:auto;
 }
 
+.autohide{
+  display: none;
+}
+
 
 .type {
   text-transform: capitalize;
@@ -62,5 +66,11 @@ body {
   }
   .profile-title {
     text-align: center;
+  }
+
+  .autohide{
+    display: inline-block;
+    font-size: 25px;
+    margin-left: 10px;
   }
 }
