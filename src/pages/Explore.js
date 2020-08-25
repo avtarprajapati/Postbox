@@ -19,14 +19,18 @@ export class Explore extends Component {
     return (
       <React.Fragment>
         <Header />
-        <div className="container py-5 min-height">
-          <div className="h4 mb-5 text-secondary text-center">
-            Explore Postbox
-          </div>
-          <div className="postHolder pb-4">
-            {PostListInfo.map((post) => (
-              <ImageCard post={post} key={post._id} />
-            ))}
+        <div className="container-fluid px-0 py-5 min-height">
+          <div className="container py-5 px-0 min-height">
+            <div className="row m-0 p-0">
+              <div className="col-md-8 pb-4 p-0 m-0">
+                <div className="mb-5 text-secondary text-center">
+                  Explore Postbox
+                </div>
+                {PostListInfo.map((post) => (
+                  <ImageCard post={post} key={post._id} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         <Footer />
@@ -52,7 +56,7 @@ function mapStateToProps(state) {
 
   return {
     currentUser,
-    PostListInfo
+    PostListInfo,
   };
 }
 

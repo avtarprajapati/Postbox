@@ -48,21 +48,9 @@ body {
 
 .post-img {
   width: 100%;
-  height: auto;
+  height:auto;
 }
 
-.postHolder {
-  column-count: 3;
-  column-gap: 10px;
-}
-
-.postCard {
-  width: 100%;
-  /* max-height: 80vh; */
-  overflow: hidden;
-  display: inline-block;
-  margin: 5px 0px;
-}
 
 .type {
   text-transform: capitalize;
@@ -74,22 +62,5 @@ body {
   }
   .profile-title {
     text-align: center;
-  }
-
-  .post-img {
-    width: 100%;
-    max-height: 85vh;
-  }
-
-  .postHolder {
-    column-count: 1;
-    column-gap: 0px;
-  }
-
-  .postCard {
-    width: 100%;
-    /* max-height: 80vh; */
-    overflow: hidden;
-    display: inline-block;
   }
 }
