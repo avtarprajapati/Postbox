@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Loading from "./Loading";
 import { connect } from "react-redux";
 import { allUser } from "../actions";
+import history from "../routes/history";
 
 import LazyLoad from "react-lazyload";
 
@@ -10,7 +11,7 @@ export class Card extends Component {
     super(props);
 
     this.state = {
-      isOpen: false,
+      isOpen: false
     };
   }
 
@@ -20,6 +21,12 @@ export class Card extends Component {
 
   funToggleComment = () => {
     this.setState({ isOpen: !this.state.isOpen });
+  };
+
+  viewProfile = (id) => {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    if (id === currentUser.userId) return history.push("/profile");
+    history.push(`/profile-view/${id}`);
   };
 
   render() {
@@ -38,7 +45,12 @@ export class Card extends Component {
               className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
               style={{ width: "40px", height: "40px" }}
             />
-            {post.username}
+            <button
+              className="btn btn-link text-decoration-none text-dark"
+              onClick={() => this.viewProfile(userDetail._id)}
+            >
+              {post.username}
+            </button>
           </div>
           <img
             src={post.imgurl}
@@ -97,7 +109,7 @@ export class Card extends Component {
 function mapStateToProps(state, ownProps) {
   const { user_id } = ownProps.post;
   return {
-    userDetail: state.users[user_id],
+    userDetail: state.users[user_id]
   };
 }
 
