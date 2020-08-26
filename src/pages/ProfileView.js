@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { allUser, editUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import UserListModal from "../components/UserListModal";
+import ImageCard from "../components/ImageCard";
 
 export class ProfileView extends Component {
   componentDidMount() {
@@ -112,13 +113,7 @@ export class ProfileView extends Component {
 
           <div className="postHolder">
             {viewUserPost.map((post) => (
-              <div className="postCard" key={post._id}>
-                <img
-                  src={post.imgurl}
-                  alt={post.title}
-                  className="rounded post-img shadow-sm"
-                />
-              </div>
+              <ImageCard post={post} key={post._id} />
             ))}
           </div>
         </div>
