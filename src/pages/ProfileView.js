@@ -14,8 +14,6 @@ export class ProfileView extends Component {
 
   isFollowing = (otherUserId) => {
     const { currentUser } = this.props;
-    console.log(currentUser.following);
-    console.log(currentUser.following.includes(otherUserId));
     return currentUser.following.includes(otherUserId);
   };
 
@@ -53,8 +51,6 @@ export class ProfileView extends Component {
 
     if (!viewUser || !currentUser) return <Loading />;
 
-    console.log(currentUser.following.includes(viewUser._id));
-    console.log(viewUser._id);
     let followersList = [];
     let followingList = [];
     followersList = viewUser.followers.map((followerId) => users[followerId]);
