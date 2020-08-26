@@ -22,7 +22,7 @@ export class Title extends Component {
     return (
       <div className="container-fluid py-0 px-0 bg-light shadow-sm">
         <div className="container px-0">
-          <nav className="navbar navbar-expand-lg navbar-light p-2">
+          <nav className="navbar navbar-expand-lg navbar-light py-1 px-2">
             <Link
               className="h3 mb-0 text-dark text-decoration-none logo"
               to="/"
@@ -30,49 +30,85 @@ export class Title extends Component {
               <span className="text-danger">Post</span>box
             </Link>
             <button
-              className="navbar-toggler"
+              className="btn btn-link navbar-toggler border-0 px-1"
               type="button"
               data-toggle="collapse"
               data-target="#navbarNav"
             >
-              <span className="navbar-toggler-icon"></span>
+              <img
+                src={currentUser.imgurl}
+                alt="profile-pic"
+                className="rounded-pill bg-grad-1 p-1"
+                height="40"
+                width="40"
+              />
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    <i className="fa fa-home fa-fw fa-2x text-dark"></i>
+                  <Link
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    to="/"
+                  >
+                    <img
+                      src={require("../assets/home.png")}
+                      alt="nav-pic"
+                      className="rounded-pill"
+                      height="40"
+                      width="40"
+                    />
                     <span className="autohide"> Home</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/explore">
-                    <i className="fa fa-compass fa-fw fa-2x text-dark"></i>
+                  <Link
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    to="/explore"
+                  >
+                    <img
+                      src={require("../assets/compass.png")}
+                      alt="nav-pic"
+                      className="rounded-pill"
+                      height="40"
+                      width="40"
+                    />
                     <span className="autohide"> Explore</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/upload">
-                    <i className="fa fa-plus-circle fa-fw fa-2x text-dark"></i>
+                  <Link
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    to="/upload"
+                  >
+                    <img
+                      src={require("../assets/plus.png")}
+                      alt="nav-pic"
+                      className="rounded-pill"
+                      height="40"
+                      width="40"
+                    />
                     <span className="autohide"> Upload</span>
                   </Link>
                 </li>
 
                 <li className="nav-item dropdown">
                   <button
-                    className="btn bg-grad-1 rounded-pill btn-lg p-1 mb-1 ml-2"
+                    className="btn btn-link text-decoration-none text-dark pl-1"
                     id="navbarDropdownMenuLink"
                     data-toggle="dropdown"
                   >
                     <img
-                      src={currentUser.imgurl}
-                      alt="profile-pic"
+                      src={require("../assets/user.png")}
+                      alt="nav-pic"
                       className="rounded-pill"
                       height="40"
                       width="40"
                     />
-                  </button><span className="autohide"><i className="fa fa-caret-down mr-2"></i></span>
-                  
+                    <span className="autohide">
+                      {currentUser.name}
+                      <i className="fa fa-caret-down ml-2"></i>
+                    </span>
+                  </button>
 
                   <div
                     className="dropdown-menu dropdown-menu-right shadow-sm border-0"
@@ -81,7 +117,13 @@ export class Title extends Component {
                     <ul className="list-group list-group-flush">
                       <li className="dropdown-item px-2 disabled">
                         <div className="h5 mb-0">
-                          <i className="fa fa-user-circle mr-2"></i>
+                          <img
+                            src={currentUser.imgurl}
+                            alt="profile-pic"
+                            className="rounded-pill bg-grad-1 p-1 mr-2"
+                            height="40"
+                            width="40"
+                          />
                           {currentUser.name}
                         </div>
                       </li>

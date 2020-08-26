@@ -3,12 +3,24 @@ import Loading from "./Loading";
 import { connect } from "react-redux";
 import { allUser } from "../actions";
 
-import LazyLoad from 'react-lazyload';
+import LazyLoad from "react-lazyload";
 
 export class Card extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpen: false,
+    };
+  }
+
   componentDidMount() {
     this.props.allUser();
   }
+
+  funToggleComment = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   render() {
     const { post, userDetail } = this.props;
@@ -19,31 +31,63 @@ export class Card extends Component {
     return (
       <div className="postCard card mb-3 py-1 border-0">
         <LazyLoad height={200}>
-        <div className="px-2 my-1">
+          <div className="px-2 my-1">
+            <img
+              src={userDetail.imgurl}
+              alt="profile-pic"
+              className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
+              style={{ width: "40px", height: "40px" }}
+            />
+            {post.username}
+          </div>
           <img
-            src={userDetail.imgurl}
-            alt="profile-pic"
-            className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
-            style={{ width: "40px", height: "40px" }}
+            src={post.imgurl}
+            alt={post.title}
+            className="post-img rounded"
           />
-          {post.username}
-        </div>
-        <img src={post.imgurl} alt={post.title} className="post-img rounded"/>
-        <div className="px-2">
-          <div className="mt-2">
-            <i className="fa fa-heart-o fa-fw fa-2x mr-2"></i>
-            <i className="fa fa-comment-o fa-fw fa-2x mr-2"></i>
-            <a className="text-decoration-none text-dark" href={post.imgurl} download>
-              <i className="fa fa-bookmark-o fa-fw fa-2x float-right"></i></a>
+          <div className="px-2">
+            <div className="mt-2">
+              <button className="btn btn-link text-decoration-none text-dark p-0 mr-2">
+                <i className="fa fa-heart-o fa-fw"></i>
+              </button>
+              <button
+                className="btn btn-link text-decoration-none text-dark p-0"
+                onClick={this.funToggleComment}
+              >
+                <i className="fa fa-comment-o fa-fw"></i>
+              </button>
+              <a
+                className="text-decoration-none text-dark float-right"
+                href={post.imgurl}
+                download
+              >
+                <i className="fa fa-bookmark-o fa-fw"></i>
+              </a>
+            </div>
+            <div className="mt-2 small font-weight-bold">10k Likes</div>
+            <div className="mt-2">
+              <span className="font-weight-bold mr-2">{post.username}</span>
+              {post.title}
+            </div>
+            {this.state.isOpen ? (
+              <div className="my-3 row border rounded">
+                <div className="col-9 px-0">
+                  <input
+                    type="text"
+                    className="form-control border-0"
+                    placeholder="Write a Comment"
+                  />
+                </div>
+                <div className="col-3 pl-1 pr-0">
+                  <button className="btn btn-light w-100">Post</button>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="mt-1 mb-3 text-muted ultra-small">
+              {postdate.toDateString()}
+            </div>
           </div>
-          <div className="mt-2">
-            <span className="font-weight-bold mr-2">{post.username}</span>
-            {post.title}
-          </div>
-          <div className="mt-1 mb-3 text-muted small">
-            {postdate.toDateString()}
-          </div>
-        </div>
         </LazyLoad>
       </div>
     );

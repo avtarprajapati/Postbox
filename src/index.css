@@ -55,10 +55,22 @@ body {
   display: none;
 }
 
-
 .type {
   text-transform: capitalize;
 }
+
+.ultra-small{
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.suggestions{
+  position: sticky;
+  top: 0px;
+  padding: 30px;
+  height: 100vh;
+}
+
 @media screen and (max-width: 600px) {
   .profile-pic {
     width: 150px;
@@ -68,9 +80,13 @@ body {
     text-align: center;
   }
 
+  .suggestions{
+   display: none;
+  }
+
   .autohide{
     display: inline-block;
-    font-size: 25px;
+    font-size: 15px;
     margin-left: 10px;
   }
 }
