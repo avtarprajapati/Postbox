@@ -22,15 +22,15 @@ export class Home extends Component {
         <div className="container-fluid px-0">
           <div className="container py-5 px-0 min-height">
             <div className="row m-0 p-0">
-              <div className="col-md-8 pb-4 p-0 m-0">
-                <div className="mb-5 text-secondary text-center">
+              <div className="col-md-7 pb-4 p-0 m-0">
+                <div className="mb-5 text-secondary small px-2">
                   Recent Posts
                 </div>
                 {followingListInfo.map((post) => (
                   <ImageCard post={post} key={post._id} />
                 ))}
               </div>
-              <div className="col-md-4">
+              <div className="col-md-5">
                 <div className="suggestions">
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
                   printing and typesetting industry. Lorem Ipsum has been the

@@ -46,6 +46,11 @@ body {
   width: 40px;
 }
 
+.postHolder{
+  column-count: 3;
+  column-gap: 10px;
+}
+
 .post-img {
   width: 100%;
   height:auto;
@@ -78,6 +83,11 @@ body {
   }
   .profile-title {
     text-align: center;
+  }
+
+  .postHolder{
+    column-count: 1;
+    column-gap: 0px;
   }
 
   .suggestions{

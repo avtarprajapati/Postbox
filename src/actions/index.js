@@ -102,7 +102,7 @@ export const createPost = ({ title, url }) => async (dispatch) => {
         user_id: userId,
         title,
         imgurl: url,
-        likeby: []
+        likedby: []
       },
       {
         headers: {

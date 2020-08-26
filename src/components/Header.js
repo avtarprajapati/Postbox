@@ -38,8 +38,6 @@ export class Title extends Component {
               <img
                 src={require("../assets/menu.png")}
                 alt="profile-pic"
-                height="40"
-                width="40"
               />
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
@@ -52,8 +50,6 @@ export class Title extends Component {
                     <img
                       src={require("../assets/home.png")}
                       alt="nav-pic"
-                      height="40"
-                      width="40"
                     />
                     <span className="autohide"> Home</span>
                   </Link>
@@ -66,8 +62,6 @@ export class Title extends Component {
                     <img
                       src={require("../assets/compass.png")}
                       alt="nav-pic"
-                      height="40"
-                      width="40"
                     />
                     <span className="autohide"> Explore</span>
                   </Link>
@@ -80,8 +74,6 @@ export class Title extends Component {
                     <img
                       src={require("../assets/plus.png")}
                       alt="nav-pic"
-                      height="40"
-                      width="40"
                     />
                     <span className="autohide"> Upload</span>
                   </Link>
@@ -114,8 +106,6 @@ export class Title extends Component {
                             src={require("../assets/user.png")}
                             alt="nav-pic"
                             className="mr-2"
-                            height="40"
-                            width="40"
                           />
                           Profile
                         </Link>
@@ -130,8 +120,6 @@ export class Title extends Component {
                             src={require("../assets/off.png")}
                             alt="nav-pic"
                             className="mr-2"
-                            height="40"
-                            width="40"
                           />
                           Logout
                         </Link>

@@ -34,15 +34,15 @@ export class Card extends Component {
     if (!post && !userDetail) return <Loading />;
 
     const postdate = new Date(post.createdAt);
-
+    
     return (
-      <div className="postCard card mb-3 py-1 border-0">
+      <div className="postCard card mb-3 py-1 border-0 d-inline-block w-100">
         <LazyLoad height={200}>
           <div className="px-2 my-1">
             <img
               src={userDetail.imgurl}
               alt="profile-pic"
-              className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
+              className="bg-grad-1 rounded-pill mb-1 p-1"
               height="40"
               width="40"
             />
@@ -64,8 +64,6 @@ export class Card extends Component {
               <img
                 src={require("../assets/heart.png")}
                 alt="profile-pic"
-                height="30"
-                width="30"
               />
               </button>
               <button
@@ -75,8 +73,6 @@ export class Card extends Component {
                 <img
                 src={require("../assets/comment.png")}
                 alt="profile-pic"
-                height="30"
-                width="30"
               />
               </button>
               <a
@@ -87,12 +83,10 @@ export class Card extends Component {
                 <img
                 src={require("../assets/bookmark.png")}
                 alt="profile-pic"
-                height="30"
-                width="30"
               />
               </a>
             </div>
-            <div className="mt-2 small font-weight-bold">10k Likes</div>
+            <div className="mt-2 small font-weight-bold">{post.likedby.length} Likes</div>
             <div className="mt-2">
               <span className="font-weight-bold mr-2">{post.username}</span>
               {post.title}
