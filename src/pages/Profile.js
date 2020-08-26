@@ -5,7 +5,7 @@ import { allUser, editUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import fireStorage from "../firebase/config";
 import UserListModal from "../components/UserListModal";
-import LazyLoad from "react-lazyload";
+import ImageCard from "../components/ImageCard";
 
 export class Profile extends Component {
   constructor(props) {
@@ -191,15 +191,7 @@ export class Profile extends Component {
 
           <div className="postHolder">
             {currentUserPost.map((post) => (
-              <div className="postCard rounded" key={post._id}>
-                <LazyLoad height={200}>
-                  <img
-                    src={post.imgurl}
-                    alt={post.title}
-                    className="post-img shadow-sm"
-                  />
-                </LazyLoad>
-              </div>
+              <ImageCard post={post} key={post._id} />
             ))}
           </div>
         </div>
