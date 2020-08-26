@@ -24,7 +24,7 @@ export class Title extends Component {
         <div className="container px-0">
           <nav className="navbar navbar-expand-lg navbar-light py-1 px-2">
             <Link
-              className="h3 mb-0 text-dark text-decoration-none logo"
+              className="h3 mb-0 mt-1 text-dark text-decoration-none logo"
               to="/"
             >
               <span className="text-danger">Post</span>box
@@ -36,9 +36,8 @@ export class Title extends Component {
               data-target="#navbarNav"
             >
               <img
-                src={currentUser.imgurl}
+                src={require("../assets/menu.png")}
                 alt="profile-pic"
-                className="rounded-pill bg-grad-1 p-1"
                 height="40"
                 width="40"
               />
@@ -47,13 +46,12 @@ export class Title extends Component {
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link
-                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3 mr-3"
                     to="/"
                   >
                     <img
                       src={require("../assets/home.png")}
                       alt="nav-pic"
-                      className="rounded-pill"
                       height="40"
                       width="40"
                     />
@@ -62,13 +60,12 @@ export class Title extends Component {
                 </li>
                 <li className="nav-item">
                   <Link
-                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3 mr-3"
                     to="/explore"
                   >
                     <img
                       src={require("../assets/compass.png")}
                       alt="nav-pic"
-                      className="rounded-pill"
                       height="40"
                       width="40"
                     />
@@ -77,13 +74,12 @@ export class Title extends Component {
                 </li>
                 <li className="nav-item">
                   <Link
-                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3"
+                    className="btn btn-link text-decoration-none text-dark pl-1 pr-3 mr-3"
                     to="/upload"
                   >
                     <img
                       src={require("../assets/plus.png")}
                       alt="nav-pic"
-                      className="rounded-pill"
                       height="40"
                       width="40"
                     />
@@ -98,9 +94,9 @@ export class Title extends Component {
                     data-toggle="dropdown"
                   >
                     <img
-                      src={require("../assets/user.png")}
-                      alt="nav-pic"
-                      className="rounded-pill"
+                      src={currentUser.imgurl}
+                      alt="profile-pic"
+                      className="rounded-pill bg-grad-1 p-1"
                       height="40"
                       width="40"
                     />
@@ -110,36 +106,33 @@ export class Title extends Component {
                     </span>
                   </button>
 
-                  <div
-                    className="dropdown-menu dropdown-menu-right shadow-sm border-0"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
+                  <div className="dropdown-menu dropdown-menu-right bg-light border-0 shadow-sm p-2 mb-3 mx-auto w-75">
                     <ul className="list-group list-group-flush">
-                      <li className="dropdown-item px-2 disabled">
-                        <div className="h5 mb-0">
+                      <li className="dropdown-item p-0 rounded bg-light mb-1">
+                        <Link className="nav-link" to="/profile">
                           <img
-                            src={currentUser.imgurl}
-                            alt="profile-pic"
-                            className="rounded-pill bg-grad-1 p-1 mr-2"
+                            src={require("../assets/user.png")}
+                            alt="nav-pic"
+                            className="mr-2"
                             height="40"
                             width="40"
                           />
-                          {currentUser.name}
-                        </div>
-                      </li>
-                      <div className="dropdown-divider"></div>
-                      <li className="dropdown-item p-1">
-                        <Link className="nav-link" to="/profile">
-                          <i className="fa fa-id-card-o mr-2"></i>Profile
+                          Profile
                         </Link>
                       </li>
-                      <li className="dropdown-item p-1">
+                      <li className="dropdown-item p-0 rounded bg-light">
                         <Link
                           className="nav-link"
                           to="/"
                           onClick={this.onLogOut}
                         >
-                          <i className="fa fa-power-off text-danger mr-2"></i>
+                          <img
+                            src={require("../assets/off.png")}
+                            alt="nav-pic"
+                            className="mr-2"
+                            height="40"
+                            width="40"
+                          />
                           Logout
                         </Link>
                       </li>

@@ -36,8 +36,8 @@ export class Upload extends Component {
       <div>
         <Header />
 
-        <div className="container-fluid pt-5">
-          <div className="col-md-5 mx-auto pt-3">
+        <div className="container-fluid pt-5 px-0">
+          <div className="col-md-5 mx-auto pt-4 px-1">
             <div className="bg-grad-1 text-light rounded-lg p-3 shadow">
               <div className="h2">Create Post</div>
               <hr className="bg-light mb-3" />

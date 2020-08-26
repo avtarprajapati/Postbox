@@ -43,7 +43,8 @@ export class Card extends Component {
               src={userDetail.imgurl}
               alt="profile-pic"
               className="bg-grad-1 rounded-pill mb-1 p-1 mr-2"
-              style={{ width: "40px", height: "40px" }}
+              height="40"
+              width="40"
             />
             <button
               className="btn btn-link text-decoration-none text-dark"
@@ -59,21 +60,36 @@ export class Card extends Component {
           />
           <div className="px-2">
             <div className="mt-2">
-              <button className="btn btn-link text-decoration-none text-dark p-0 mr-2">
-                <i className="fa fa-heart-o fa-fw"></i>
+              <button className="btn btn-link text-decoration-none text-dark p-0 mr-3">
+              <img
+                src={require("../assets/heart.png")}
+                alt="profile-pic"
+                height="30"
+                width="30"
+              />
               </button>
               <button
                 className="btn btn-link text-decoration-none text-dark p-0"
                 onClick={this.funToggleComment}
               >
-                <i className="fa fa-comment-o fa-fw"></i>
+                <img
+                src={require("../assets/comment.png")}
+                alt="profile-pic"
+                height="30"
+                width="30"
+              />
               </button>
               <a
                 className="text-decoration-none text-dark float-right"
                 href={post.imgurl}
                 download
               >
-                <i className="fa fa-bookmark-o fa-fw"></i>
+                <img
+                src={require("../assets/bookmark.png")}
+                alt="profile-pic"
+                height="30"
+                width="30"
+              />
               </a>
             </div>
             <div className="mt-2 small font-weight-bold">10k Likes</div>
