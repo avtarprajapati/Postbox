@@ -12,6 +12,13 @@ export class ProfileView extends Component {
     this.props.selectPosts();
   }
 
+  isFollowing = (otherUserId) => {
+    const { currentUser } = this.props;
+    console.log(currentUser.following);
+    console.log(currentUser.following.includes(otherUserId));
+    return currentUser.following.includes(otherUserId);
+  };
+
   updateFollow = (otherUserId) => {
     const { currentUser, users } = this.props;
 
@@ -46,11 +53,14 @@ export class ProfileView extends Component {
 
     if (!viewUser || !currentUser) return <Loading />;
 
+    console.log(currentUser.following.includes(viewUser._id));
+    console.log(viewUser._id);
     let followersList = [];
     let followingList = [];
     followersList = viewUser.followers.map((followerId) => users[followerId]);
     followingList = viewUser.following.map((followingId) => users[followingId]);
 
+    console.log(this.isFollowing(viewUser._id));
     return (
       <React.Fragment>
         <Header />
@@ -65,8 +75,11 @@ export class ProfileView extends Component {
             </div>
             <div className="col-md-9 profile-title p-4">
               <div className="display-4">{viewUser.name}</div>
-              <button className="btn btn-link btn-sm text-secondary text-decoration-none mb-4">
-                Follow
+              <button
+                className="btn btn-link btn-sm text-secondary text-decoration-none mb-4"
+                onClick={() => this.updateFollow(viewUser._id)}
+              >
+                {this.isFollowing(viewUser._id) ? "Following" : "Follow"}
               </button>
             </div>
             <div className="col-md-12 py-3">
