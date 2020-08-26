@@ -8,6 +8,7 @@ import ImageCard from "../components/ImageCard";
 
 export class Home extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.allUser();
     this.props.selectPosts();
   }
@@ -69,7 +70,7 @@ function mapStateToProps(state) {
 
   return {
     currentUser,
-    followingListInfo,
+    followingListInfo
   };
 }
 

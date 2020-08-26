@@ -25,6 +25,7 @@ export class Profile extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.allUser();
     this.props.selectPosts();
   }
@@ -192,11 +193,11 @@ export class Profile extends Component {
             {currentUserPost.map((post) => (
               <div className="postCard rounded" key={post._id}>
                 <LazyLoad height={200}>
-                <img
-                  src={post.imgurl}
-                  alt={post.title}
-                  className="post-img shadow-sm"
-                />
+                  <img
+                    src={post.imgurl}
+                    alt={post.title}
+                    className="post-img shadow-sm"
+                  />
                 </LazyLoad>
               </div>
             ))}

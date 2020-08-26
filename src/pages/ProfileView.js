@@ -7,6 +7,7 @@ import UserListModal from "../components/UserListModal";
 
 export class ProfileView extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.allUser();
     this.props.selectPosts();
   }
