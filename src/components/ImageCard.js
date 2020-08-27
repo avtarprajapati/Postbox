@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import Loading from "./Loading";
 import { connect } from "react-redux";
-import { allUser, editPost } from "../actions";
+import {
+  allUser,
+  editPost,
+  addComment,
+  postComment
+  // selectComment,
+  // userComment
+} from "../actions";
 import history from "../routes/history";
 
 import LazyLoad from "react-lazyload";
@@ -11,12 +18,17 @@ export class Card extends Component {
     super(props);
 
     this.state = {
-      isOpen: false
+      isOpen: false,
+      comment: ""
     };
   }
 
   componentDidMount() {
     this.props.allUser();
+    const { post } = this.props;
+    if (post) {
+      this.props.postComment(post._id);
+    }
   }
 
   funToggleComment = () => {
@@ -27,6 +39,15 @@ export class Card extends Component {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (id === currentUser.userId) return history.push("/profile");
     history.push(`/profile-view/${id}`);
+  };
+
+  onPost = async (user_id, post_id, comment) => {
+    await this.props.addComment({
+      user_id,
+      post_id,
+      comment
+    });
+    this.setState({ comment: "", isOpen: false });
   };
 
   onLike = (post) => {
@@ -41,8 +62,8 @@ export class Card extends Component {
   };
 
   render() {
-    const { post, userDetail } = this.props;
-    if (!post && !userDetail) return <Loading />;
+    const { post, userDetail, postComments, users } = this.props;
+    if (!post && !userDetail && !users) return <Loading />;
 
     const postdate = new Date(post.createdAt);
 
@@ -114,6 +135,24 @@ export class Card extends Component {
               <span className="font-weight-bold mr-2">{post.username}</span>
               {post.title}
             </div>
+            {/* Show Comment if length > 1 */}
+            <div>
+              {postComments && postComments.length > 0 && (
+                <div className="text-muted ultra-small">
+                  {postComments.length} comments
+                </div>
+              )}
+            </div>
+            <div>
+              {postComments && postComments.length > 1
+                ? [postComments[0], postComments[1]].map((post, i) => (
+                    <div className="text-muted" key={i}>
+                      <span>{users[post.user_id].name}:-</span>
+                      {post.comment}
+                    </div>
+                  ))
+                : ""}
+            </div>
             {this.state.isOpen ? (
               <div className="my-3 row border rounded">
                 <div className="col-9 px-0">
@@ -121,10 +160,23 @@ export class Card extends Component {
                     type="text"
                     className="form-control border-0"
                     placeholder="Write a Comment"
+                    value={this.state.comment}
+                    onChange={(e) => this.setState({ comment: e.target.value })}
                   />
                 </div>
                 <div className="col-3 pl-1 pr-0">
-                  <button className="btn btn-light w-100">Post</button>
+                  <button
+                    className="btn btn-light w-100"
+                    onClick={() =>
+                      this.onPost({
+                        user_id: currentUser.userId,
+                        post_id: post._id,
+                        comment: this.state.comment
+                      })
+                    }
+                  >
+                    Post
+                  </button>
                 </div>
               </div>
             ) : null}
@@ -140,10 +192,21 @@ export class Card extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { user_id } = ownProps.post;
+  const { user_id, _id } = ownProps.post;
+  // console.log(state.users);
+
   return {
-    userDetail: state.users[user_id]
+    userDetail: state.users[user_id],
+    postComments: state.comments[_id],
+    users: state.users
   };
 }
 
-export default connect(mapStateToProps, { allUser, editPost })(Card);
+export default connect(mapStateToProps, {
+  allUser,
+  editPost,
+  addComment,
+  postComment
+  // selectComment,
+  // userComment
+})(Card);
