@@ -1,6 +1,6 @@
 import postBox from "../apis/postbox";
 import history from "../routes/history";
-import { ADD_USER, All_USER, SELECT_POSTS } from "./typeConfig";
+import { ADD_USER, All_USER, SELECT_POSTS, EDIT_POST } from "./typeConfig";
 
 import { toast } from "react-toastify";
 
@@ -126,6 +126,27 @@ export const selectPosts = () => async (dispatch) => {
 
   dispatch({
     type: SELECT_POSTS,
+    payload: response.data.message
+  });
+};
+
+export const editPost = (updateValue) => async (dispatch) => {
+  const token = window.localStorage.getItem("token");
+
+  await postBox.post("/edit-post", updateValue, {
+    headers: {
+      auth: token
+    }
+  });
+
+  const response = await postBox.get("/select-post", {
+    headers: {
+      auth: token
+    }
+  });
+
+  dispatch({
+    type: EDIT_POST,
     payload: response.data.message
   });
 };
