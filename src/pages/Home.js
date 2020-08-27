@@ -13,7 +13,7 @@ export class Home extends Component {
     this.props.selectPosts();
   }
   render() {
-    const { followingListInfo } = this.props;
+    const { followingListInfo, suggestionList } = this.props;
     if (!followingListInfo) return <Loading />;
 
     return (
@@ -32,16 +32,49 @@ export class Home extends Component {
               </div>
               <div className="col-md-5">
                 <div className="suggestions">
-                  What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an
-                  unknown printer took a galley of type and scrambled it to make
-                  a type specimen book. It has survived not only five centuries,
-                  but also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  <div className="py-5 px-3">
+                    <div className="h1 logo">
+                      <img
+                        src={this.props.currentUser.imgurl}
+                        alt="profile-pic"
+                        className="bg-grad-1 p-1 rounded-pill mr-2 mb-1"
+                        height="50"
+                        width="50"
+                      />
+                      {this.props.currentUser.name}
+                      <img
+                        src={require("../assets/verified.png")}
+                        alt="profile-pic"
+                        className="mb-1 ml-1"
+                        height="30"
+                        width="30"
+                      />
+                    </div>
+
+                    <div className="my-3 text-secondary small px-2">
+                      Suggested users
+                    </div>
+
+                    <div className="mt-3">
+                      {suggestionList.map((user) => (
+                        <div className="p-1 mb-2 mx-1" key={user._id}>
+                          <button
+                            // onClick={(e) => handleFollow(user._id)}
+                            className="btn btn-link btn-lg text-dark text-decoration-none p-0"
+                          >
+                            <img
+                              src={user.imgurl}
+                              alt="user"
+                              className="bg-grad-1 mr-2 rounded-pill p-1 mb-1"
+                              height="30"
+                              width="30"
+                            />
+                            {user.name}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,11 +99,21 @@ function mapStateToProps(state) {
       )
       .map((userPost) => userPost[1])
       .reverse();
+
+    var suggestionList = Object.entries(state.users)
+      .filter(
+        ([key, value]) =>
+          !currentUser.following.includes(value._id) &&
+          value._id !== currentUser._id
+      )
+      .map((userPost) => userPost[1])
+      .reverse();
   }
 
   return {
     currentUser,
-    followingListInfo
+    followingListInfo,
+    suggestionList,
   };
 }
 

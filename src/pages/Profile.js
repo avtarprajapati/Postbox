@@ -20,7 +20,7 @@ export class Profile extends Component {
       password: "",
       file: null,
       following: [],
-      followers: []
+      followers: [],
     };
   }
 
@@ -59,7 +59,7 @@ export class Profile extends Component {
       imgurl,
       password,
       following,
-      followers
+      followers,
     } = this.state;
 
     if (
@@ -79,7 +79,7 @@ export class Profile extends Component {
         imgurl,
         password,
         following,
-        followers
+        followers,
       });
     }
   }
@@ -94,20 +94,20 @@ export class Profile extends Component {
     if (followingUser) {
       this.props.editUser({
         ...currentUser,
-        following: currentUser.following.filter((id) => id !== otherUserId)
+        following: currentUser.following.filter((id) => id !== otherUserId),
       });
       this.props.editUser({
         ...otherUser,
-        followers: otherUser.followers.filter((id) => id !== currentUser._id)
+        followers: otherUser.followers.filter((id) => id !== currentUser._id),
       });
     } else {
       this.props.editUser({
         ...currentUser,
-        following: [...currentUser.following, otherUserId]
+        following: [...currentUser.following, otherUserId],
       });
       this.props.editUser({
         ...otherUser,
-        followers: [...otherUser.followers, currentUser._id]
+        followers: [...otherUser.followers, currentUser._id],
       });
     }
   };
@@ -139,7 +139,14 @@ export class Profile extends Component {
               />
             </div>
             <div className="col-md-9 profile-title p-4">
-              <div className="display-4">{currentUser.name}</div>
+              <div className="display-4">
+                {currentUser.name}{" "}
+                <img
+                  src={require("../assets/verified.png")}
+                  alt="profile-pic"
+                  className="mb-2"
+                />
+              </div>
               <button
                 data-toggle="modal"
                 data-target="#editModal"
@@ -302,7 +309,7 @@ function mapStateToProps(state) {
   return {
     currentUser: state.users[currentUser.userId],
     currentUserPost,
-    users: state.users
+    users: state.users,
   };
 }
 
