@@ -3,3 +3,4 @@ export const All_USER = "All_USER";
 export const EDIT_USER = "EDIT_USER";
 
 export const SELECT_POSTS = "SELECT_POSTS";
+export const EDIT_POST = "EDIT_POST";
