@@ -57,7 +57,6 @@ export class ProfileView extends Component {
     followersList = viewUser.followers.map((followerId) => users[followerId]);
     followingList = viewUser.following.map((followingId) => users[followingId]);
 
-    console.log(this.isFollowing(viewUser._id));
     return (
       <React.Fragment>
         <Header />
