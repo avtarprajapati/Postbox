@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Loading from "./Loading";
 import { connect } from "react-redux";
-import { allUser } from "../actions";
+import { allUser, editPost } from "../actions";
 import history from "../routes/history";
 
 import LazyLoad from "react-lazyload";
@@ -29,12 +29,26 @@ export class Card extends Component {
     history.push(`/profile-view/${id}`);
   };
 
+  onLike = (post) => {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    let likedby = [];
+    if (post.likedby.includes(currentUser.userId)) {
+      likedby = post.likedby.filter((id) => id !== currentUser.userId);
+    } else {
+      likedby = [...post.likedby, currentUser.userId];
+    }
+    this.props.editPost({ ...post, likedby });
+  };
+
   render() {
     const { post, userDetail } = this.props;
     if (!post && !userDetail) return <Loading />;
 
     const postdate = new Date(post.createdAt);
-    
+
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    const isLike = post.likedby.includes(currentUser.userId);
+
     return (
       <div className="postCard card mb-3 py-1 border-0 d-inline-block w-100">
         <LazyLoad height={200}>
@@ -57,23 +71,30 @@ export class Card extends Component {
             src={post.imgurl}
             alt={post.title}
             className="post-img rounded"
+            onClick={(e) => {
+              // TODO:- One Click to open Modal show pic & comments details
+              // if (e.detail === 1) console.log("once click");
+              if (e.detail === 2) this.onLike(post);
+            }}
           />
           <div className="px-2">
             <div className="mt-2">
-              <button className="btn btn-link text-decoration-none text-dark p-0 mr-3">
-              <img
-                src={require("../assets/heart.png")}
-                alt="profile-pic"
-              />
+              <button
+                className="btn btn-link text-decoration-none text-dark p-0 mr-3"
+                onClick={() => this.onLike(post)}
+              >
+                <img
+                  src={require(`../assets/${
+                    isLike ? "heart-filled" : "heart"
+                  }.png`)}
+                  alt="profile-pic"
+                />
               </button>
               <button
                 className="btn btn-link text-decoration-none text-dark p-0"
                 onClick={this.funToggleComment}
               >
-                <img
-                src={require("../assets/comment.png")}
-                alt="profile-pic"
-              />
+                <img src={require("../assets/comment.png")} alt="profile-pic" />
               </button>
               <a
                 className="text-decoration-none text-dark float-right"
@@ -81,12 +102,14 @@ export class Card extends Component {
                 download
               >
                 <img
-                src={require("../assets/bookmark.png")}
-                alt="profile-pic"
-              />
+                  src={require("../assets/bookmark.png")}
+                  alt="profile-pic"
+                />
               </a>
             </div>
-            <div className="mt-2 small font-weight-bold">{post.likedby.length} Likes</div>
+            <div className="mt-2 small font-weight-bold">
+              {post.likedby.length} Likes
+            </div>
             <div className="mt-2">
               <span className="font-weight-bold mr-2">{post.username}</span>
               {post.title}
@@ -123,4 +146,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, { allUser })(Card);
+export default connect(mapStateToProps, { allUser, editPost })(Card);
