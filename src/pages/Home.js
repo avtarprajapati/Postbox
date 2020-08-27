@@ -5,6 +5,7 @@ import { allUser, selectPosts } from "../actions";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
 import ImageCard from "../components/ImageCard";
+import history from "../routes/history";
 
 export class Home extends Component {
   componentDidMount() {
@@ -12,6 +13,13 @@ export class Home extends Component {
     this.props.allUser();
     this.props.selectPosts();
   }
+
+  viewProfile = (id) => {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    if (id === currentUser.userId) return history.push("/profile");
+    history.push(`/profile-view/${id}`);
+  };
+
   render() {
     const { followingListInfo, suggestionList } = this.props;
     if (!followingListInfo) return <Loading />;
@@ -59,7 +67,7 @@ export class Home extends Component {
                       {suggestionList.map((user) => (
                         <div className="p-1 mb-2 mx-1" key={user._id}>
                           <button
-                            // onClick={(e) => handleFollow(user._id)}
+                            onClick={(e) => this.viewProfile(user._id)}
                             className="btn btn-link btn-lg text-dark text-decoration-none p-0"
                           >
                             <img
@@ -113,7 +121,7 @@ function mapStateToProps(state) {
   return {
     currentUser,
     followingListInfo,
-    suggestionList,
+    suggestionList
   };
 }
 
