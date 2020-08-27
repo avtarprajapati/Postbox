@@ -75,7 +75,7 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
   const token = response.data.token;
   const currentUser = JSON.stringify({
     name: response.data.name,
-    userId: response.id
+    userId: response.data._id
   });
 
   // set token in localStorage after verify user
