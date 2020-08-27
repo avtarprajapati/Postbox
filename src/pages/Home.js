@@ -28,7 +28,7 @@ export class Home extends Component {
       <React.Fragment>
         <Header />
         <div className="container-fluid px-0">
-          <div className="container py-5 px-0 min-height">
+          <div className="container py-5 px-custom min-height">
             <div className="row m-0 p-0">
               <div className="col-md-7 pb-4 p-0 m-0">
                 <div className="mb-5 text-secondary small px-2">
@@ -40,7 +40,7 @@ export class Home extends Component {
               </div>
               <div className="col-md-5">
                 <div className="suggestions">
-                  <div className="py-5 px-3">
+                  <div className="py-5 px-4">
                     <div className="h1 logo">
                       <img
                         src={this.props.currentUser.imgurl}

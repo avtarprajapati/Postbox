@@ -97,28 +97,22 @@ export class Card extends Component {
                 className="btn btn-link text-decoration-none text-dark p-0 mr-3"
                 onClick={() => this.onLike(post)}
               >
-                <img
-                  src={require(`../assets/${
-                    isLike ? "heart-filled" : "heart"
-                  }.png`)}
-                  alt="profile-pic"
-                />
+                {
+                  isLike ? (<i className="fa fa-heart text-danger fa-2x"></i>) : (<i className="fa fa-heart-o fa-2x"></i>)
+                }
               </button>
               <button
                 className="btn btn-link text-decoration-none text-dark p-0"
                 onClick={this.funToggleComment}
               >
-                <img src={require("../assets/comment.png")} alt="profile-pic" />
+                <i className="fa fa-comment-o fa-2x"></i>
               </button>
               <a
                 className="text-decoration-none text-dark float-right"
                 href={post.imgurl}
                 download
               >
-                <img
-                  src={require("../assets/bookmark.png")}
-                  alt="profile-pic"
-                />
+                 <i className="fa fa-bookmark-o fa-2x"></i>
               </a>
             </div>
             <div className="mt-2 small font-weight-bold">
@@ -131,16 +125,16 @@ export class Card extends Component {
             {/* Show Comment if length > 1 */}
             <div>
               {postComments && postComments.length > 0 && (
-                <div className="text-muted ultra-small">
-                  {postComments.length} comments
+                <div className="small font-weight-bold mt-2">
+                  {postComments.length} Comments
                 </div>
               )}
             </div>
             <div>
               {postComments && postComments.length > 1
                 ? [postComments[0], postComments[1]].map((post, i) => (
-                    <div className="text-muted" key={i}>
-                      <span>{users[post.user_id].name}:-</span>
+                    <div className="text-muted small" key={i}>
+                      <span className="font-weight-bold">{users[post.user_id].name} </span>
                       {post.comment}
                     </div>
                   ))

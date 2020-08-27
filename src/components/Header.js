@@ -21,7 +21,7 @@ export class Title extends Component {
 
     return (
       <div className="container-fluid py-0 px-0 bg-light shadow-sm">
-        <div className="container px-0">
+        <div className="container px-custom">
           <nav className="navbar navbar-expand-lg navbar-light py-1 px-2">
             <Link
               className="h3 mb-0 mt-1 text-dark text-decoration-none logo"

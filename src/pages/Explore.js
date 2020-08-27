@@ -20,8 +20,8 @@ export class Explore extends Component {
     return (
       <React.Fragment>
         <Header />
-        <div className="container-fluid px-0 py-5 min-height">
-          <div className="container px-0 min-height">
+        <div className="container-fluid px-0">
+          <div className="container py-5 px-custom min-height">
             <div className="mb-5 text-secondary small px-2">
               Explore Postbox
             </div>
