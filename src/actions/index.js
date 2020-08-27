@@ -1,6 +1,13 @@
 import postBox from "../apis/postbox";
 import history from "../routes/history";
-import { ADD_USER, All_USER, SELECT_POSTS, EDIT_POST } from "./typeConfig";
+import {
+  ADD_USER,
+  All_USER,
+  SELECT_POSTS,
+  EDIT_POST,
+  POST_COMMENT,
+  ADD_COMMENT
+} from "./typeConfig";
 
 import { toast } from "react-toastify";
 
@@ -68,7 +75,7 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
   const token = response.data.token;
   const currentUser = JSON.stringify({
     name: response.data.name,
-    userId: response.data._id
+    userId: response.id
   });
 
   // set token in localStorage after verify user
@@ -89,6 +96,7 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
 };
 
 // Post
+
 export const createPost = ({ title, url }) => async (dispatch) => {
   const { name, userId } = JSON.parse(
     window.localStorage.getItem("currentUser")
@@ -148,5 +156,50 @@ export const editPost = (updateValue) => async (dispatch) => {
   dispatch({
     type: EDIT_POST,
     payload: response.data.message
+  });
+};
+
+// Comment
+
+export const addComment = (value) => async (dispatch) => {
+  const token = window.localStorage.getItem("token");
+
+  await postBox.post("/add-comment", value, {
+    headers: {
+      auth: token
+    }
+  });
+
+  const response = await postBox.post(
+    "/post-comment",
+    { post_id: value.post_id },
+    {
+      headers: {
+        auth: token
+      }
+    }
+  );
+
+  dispatch({
+    type: ADD_COMMENT,
+    payload: { post_id: value.post_id, comments: response.data.message }
+  });
+};
+
+export const postComment = (id) => async (dispatch) => {
+  const token = window.localStorage.getItem("token");
+  const response = await postBox.post(
+    "/post-comment",
+    { post_id: id },
+    {
+      headers: {
+        auth: token
+      }
+    }
+  );
+
+  dispatch({
+    type: POST_COMMENT,
+    payload: { post_id: id, comments: response.data.message }
   });
 };
