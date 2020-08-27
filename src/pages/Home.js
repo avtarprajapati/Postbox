@@ -32,16 +32,22 @@ export class Home extends Component {
               </div>
               <div className="col-md-5">
                 <div className="suggestions">
-                  What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an
-                  unknown printer took a galley of type and scrambled it to make
-                  a type specimen book. It has survived not only five centuries,
-                  but also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  <div className="py-5 px-3 h1">
+                    <img
+                      src={this.props.currentUser.imgurl}
+                      alt="profile-pic"
+                      className="bg-grad-1 p-1 rounded-pill mr-2 mb-2"
+                      height="50"
+                      width="50"
+                    />
+                    {this.props.currentUser.name}
+                    <img
+                      src={require("../assets/verified.png")}
+                      alt="profile-pic"
+                      className="mb-2 ml-1"
+                      height="25" width="25"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -70,7 +76,7 @@ function mapStateToProps(state) {
 
   return {
     currentUser,
-    followingListInfo
+    followingListInfo,
   };
 }
 

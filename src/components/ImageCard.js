@@ -106,7 +106,7 @@ export class Card extends Component {
               </div>
             ) : null}
 
-            <div className="mt-1 mb-3 text-muted ultra-small">
+            <div className="mb-3 mt-2 text-muted ultra-small">
               {postdate.toDateString()}
             </div>
           </div>
