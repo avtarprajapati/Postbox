@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import Loading from "./Loading";
 import { connect } from "react-redux";
-import {
-  allUser,
-  editPost,
-  addComment,
-  postComment
-  // selectComment,
-  // userComment
-} from "../actions";
+import { allUser, editPost, addComment, postComment } from "../actions";
 import history from "../routes/history";
 
 import LazyLoad from "react-lazyload";
@@ -207,6 +200,4 @@ export default connect(mapStateToProps, {
   editPost,
   addComment,
   postComment
-  // selectComment,
-  // userComment
 })(Card);
