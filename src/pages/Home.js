@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Header from "../components/Header";
-import { allUser, selectPosts } from "../actions";
+import { allUser, selectPosts, verifyUser } from "../actions";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
 import ImageCard from "../components/ImageCard";
 import history from "../routes/history";
 
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
 export class Home extends Component {
-
   componentDidMount() {
     this.funRelogin();
     window.scrollTo(0, 0);
@@ -18,13 +17,11 @@ export class Home extends Component {
     this.props.selectPosts();
   }
 
-
-  funRelogin=()=>{
-    const token = window.localStorage.getItem('token');
-    var decoded = jwtDecode(token);
-    console.log(decoded.data);
-  }
-
+  funRelogin = () => {
+    const token = window.localStorage.getItem("token");
+    let { email, password } = jwtDecode(token);
+    this.props.verifyUser({ email, password });
+  };
 
   viewProfile = (id) => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
@@ -35,7 +32,6 @@ export class Home extends Component {
   render() {
     const { followingListInfo, suggestionList } = this.props;
     if (!followingListInfo) return <Loading />;
-   
 
     return (
       <React.Fragment>
@@ -134,8 +130,10 @@ function mapStateToProps(state) {
   return {
     currentUser,
     followingListInfo,
-    suggestionList,
+    suggestionList
   };
 }
 
-export default connect(mapStateToProps, { allUser, selectPosts })(Home);
+export default connect(mapStateToProps, { allUser, selectPosts, verifyUser })(
+  Home
+);
