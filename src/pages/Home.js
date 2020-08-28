@@ -7,12 +7,24 @@ import Footer from "../components/Footer";
 import ImageCard from "../components/ImageCard";
 import history from "../routes/history";
 
+import jwtDecode from 'jwt-decode';
+
 export class Home extends Component {
+
   componentDidMount() {
+    this.funRelogin();
     window.scrollTo(0, 0);
     this.props.allUser();
     this.props.selectPosts();
   }
+
+
+  funRelogin=()=>{
+    const token = window.localStorage.getItem('token');
+    var decoded = jwtDecode(token);
+    console.log(decoded.data);
+  }
+
 
   viewProfile = (id) => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
@@ -23,6 +35,7 @@ export class Home extends Component {
   render() {
     const { followingListInfo, suggestionList } = this.props;
     if (!followingListInfo) return <Loading />;
+   
 
     return (
       <React.Fragment>
@@ -121,7 +134,7 @@ function mapStateToProps(state) {
   return {
     currentUser,
     followingListInfo,
-    suggestionList
+    suggestionList,
   };
 }
 

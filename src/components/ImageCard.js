@@ -266,7 +266,7 @@ export class Card extends Component {
                       ))
                     : ""}
                 </div>
-                <div className="my-3 row border rounded">
+                <div className="my-3 mx-1 row border rounded">
                   <div className="col-9 px-0">
                     <input
                       type="text"
