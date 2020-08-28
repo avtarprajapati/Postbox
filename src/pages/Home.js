@@ -19,8 +19,15 @@ export class Home extends Component {
 
   funRelogin = () => {
     const token = window.localStorage.getItem("token");
-    let { email, password } = jwtDecode(token);
-    this.props.verifyUser({ email, password });
+    if (token){
+      let decoded = jwtDecode(token);
+      const {email,password} = decoded.data;
+      this.props.verifyUser({ email, password },false);
+    }
+    else{
+      history.push('/register');
+    }
+    
   };
 
   viewProfile = (id) => {

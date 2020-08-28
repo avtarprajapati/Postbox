@@ -66,7 +66,7 @@ export const editUser = (upateValue) => async (dispatch) => {
   dispatch(allUser());
 };
 
-export const verifyUser = ({ email, password }) => async (dispatch) => {
+export const verifyUser = ({ email, password },showToast) => async (dispatch) => {
   const response = await postBox.post("/verify-user", {
     email,
     password
@@ -87,7 +87,9 @@ export const verifyUser = ({ email, password }) => async (dispatch) => {
     dispatch(allUser());
 
     history.push("/");
-    toast.dark("Welcome to Postbox " + response.data.name);
+    if (showToast === true){
+      toast.dark("Welcome to Postbox " + response.data.name);
+    }
   } else {
     // TODO: Make ui to user know this
     history.push("/register");

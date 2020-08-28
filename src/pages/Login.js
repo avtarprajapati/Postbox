@@ -10,7 +10,7 @@ export class Login extends Component {
   };
   onFormLogin = (e) => {
     e.preventDefault();
-    this.props.verifyUser(this.state);
+    this.props.verifyUser(this.state,true);
   };
   render() {
     return (
