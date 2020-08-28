@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import { connect } from "react-redux";
 import { allUser, editPost, addComment, postComment } from "../actions";
 import history from "../routes/history";
+import { Modal, ModalBody} from "reactstrap";
 
 import LazyLoad from "react-lazyload";
 
@@ -12,7 +13,8 @@ export class Card extends Component {
 
     this.state = {
       isOpen: false,
-      comment: ""
+      comment: "",
+      modal: false,
     };
   }
 
@@ -28,6 +30,8 @@ export class Card extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
+  toggle = () => this.setState({ modal: !this.state.modal });
+
   viewProfile = (id) => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (id === currentUser.userId) return history.push("/profile");
@@ -38,7 +42,7 @@ export class Card extends Component {
     await this.props.addComment({
       user_id,
       post_id,
-      comment
+      comment,
     });
     this.setState({ comment: "", isOpen: false });
   };
@@ -87,7 +91,7 @@ export class Card extends Component {
             className="post-img rounded"
             onClick={(e) => {
               // TODO:- One Click to open Modal show pic & comments details
-              // if (e.detail === 1) console.log("once click");
+              if (e.detail === 1) this.toggle();
               if (e.detail === 2) this.onLike(post);
             }}
           />
@@ -97,9 +101,11 @@ export class Card extends Component {
                 className="btn btn-link text-decoration-none text-dark p-0 mr-3"
                 onClick={() => this.onLike(post)}
               >
-                {
-                  isLike ? (<i className="fa fa-heart text-danger fa-2x"></i>) : (<i className="fa fa-heart-o fa-2x"></i>)
-                }
+                {isLike ? (
+                  <i className="fa fa-heart text-danger fa-2x"></i>
+                ) : (
+                  <i className="fa fa-heart-o fa-2x"></i>
+                )}
               </button>
               <button
                 className="btn btn-link text-decoration-none text-dark p-0"
@@ -112,7 +118,7 @@ export class Card extends Component {
                 href={post.imgurl}
                 download
               >
-                 <i className="fa fa-bookmark-o fa-2x"></i>
+                <i className="fa fa-bookmark-o fa-2x"></i>
               </a>
             </div>
             <div className="mt-2 small font-weight-bold">
@@ -134,7 +140,9 @@ export class Card extends Component {
               {postComments && postComments.length > 1
                 ? [postComments[0], postComments[1]].map((post, i) => (
                     <div className="text-muted small" key={i}>
-                      <span className="font-weight-bold">{users[post.user_id].name} </span>
+                      <span className="font-weight-bold">
+                        {users[post.user_id].name}{" "}
+                      </span>
                       {post.comment}
                     </div>
                   ))
@@ -158,7 +166,7 @@ export class Card extends Component {
                       this.onPost({
                         user_id: currentUser.userId,
                         post_id: post._id,
-                        comment: this.state.comment
+                        comment: this.state.comment,
                       })
                     }
                   >
@@ -173,6 +181,128 @@ export class Card extends Component {
             </div>
           </div>
         </LazyLoad>
+
+        <div>
+          <Modal isOpen={this.state.modal}>
+            <ModalBody className="p-0">
+            <div className="p-2 mt-1">
+                <img
+                  src={userDetail.imgurl}
+                  alt="profile-pic"
+                  className="bg-grad-1 rounded-pill mb-1 p-1"
+                  height="40"
+                  width="40"
+                />
+                <button
+                  className="btn btn-link text-decoration-none text-dark"
+                  onClick={() => this.viewProfile(userDetail._id)}
+                >
+                  {post.username}
+                </button>
+              </div>
+              <img
+                src={post.imgurl}
+                alt={post.title}
+                className="post-img"
+                onClick={(e) => {
+                  // TODO:- One Click to open Modal show pic & comments details
+                  if (e.detail === 1) this.toggle();
+                  if (e.detail === 2) this.onLike(post);
+                }}
+              />
+              <div className="px-3">
+                <div className="mt-2">
+                  <button
+                    className="btn btn-link text-decoration-none text-dark p-0 mr-3"
+                    onClick={() => this.onLike(post)}
+                  >
+                    {isLike ? (
+                      <i className="fa fa-heart text-danger fa-2x"></i>
+                    ) : (
+                      <i className="fa fa-heart-o fa-2x"></i>
+                    )}
+                  </button>
+                  <button
+                    className="btn btn-link text-decoration-none text-dark p-0"
+                    onClick={this.funToggleComment}
+                  >
+                    <i className="fa fa-comment-o fa-2x"></i>
+                  </button>
+                  <a
+                    className="text-decoration-none text-dark float-right"
+                    href={post.imgurl}
+                    download
+                  >
+                    <i className="fa fa-bookmark-o fa-2x"></i>
+                  </a>
+                </div>
+                <div className="mt-2 small font-weight-bold">
+                  {post.likedby.length} Likes
+                </div>
+                <div className="mt-2">
+                  <span className="font-weight-bold mr-2">{post.username}</span>
+                  {post.title}
+                </div>
+                {/* Show Comment if length > 1 */}
+                <div>
+                  {postComments && postComments.length > 0 && (
+                    <div className="small font-weight-bold mt-2">
+                      {postComments.length} Comments
+                    </div>
+                  )}
+                </div>
+                <div>
+                  {postComments && postComments.length > 1
+                    ? postComments.map((post, i) => (
+                        <div className="small" key={i}>
+                          <span className="font-weight-bold">
+                            {users[post.user_id].name}{" "}
+                          </span>
+                          {post.comment}
+                        </div>
+                      ))
+                    : ""}
+                </div>
+                {this.state.isOpen ? (
+                  <div className="my-3 row border rounded">
+                    <div className="col-9 px-0">
+                      <input
+                        type="text"
+                        className="form-control border-0"
+                        placeholder="Write a Comment"
+                        value={this.state.comment}
+                        onChange={(e) =>
+                          this.setState({ comment: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="col-3 pl-1 pr-0">
+                      <button
+                        className="btn btn-light w-100"
+                        onClick={() =>
+                          this.onPost({
+                            user_id: currentUser.userId,
+                            post_id: post._id,
+                            comment: this.state.comment,
+                          })
+                        }
+                      >
+                        Post
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
+
+                <div className="mb-3 mt-2 text-muted ultra-small">
+                  {postdate.toDateString()}
+                </div>
+              </div>
+              <div className="text-center my-3">
+                <button className="btn btn-sm btn-danger" onClick={this.toggle}>Close</button>
+              </div>
+            </ModalBody>
+          </Modal>
+        </div>
       </div>
     );
   }
@@ -185,7 +315,7 @@ function mapStateToProps(state, ownProps) {
   return {
     userDetail: state.users[user_id],
     postComments: state.comments[_id],
-    users: state.users
+    users: state.users,
   };
 }
 
@@ -193,5 +323,5 @@ export default connect(mapStateToProps, {
   allUser,
   editPost,
   addComment,
-  postComment
+  postComment,
 })(Card);
