@@ -80,7 +80,7 @@ export class Home extends Component {
                     </div>
 
                     <div className="mt-3">
-                      {suggestionList.map((user) => (
+                      {suggestionList.slice(0,6).map((user) => (
                         <div className="p-1 mb-2 mx-1" key={user._id}>
                           <button
                             onClick={(e) => this.viewProfile(user._id)}

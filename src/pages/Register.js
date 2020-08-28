@@ -16,16 +16,20 @@ export class Register extends Component {
     this.props.createUser(this.state);
   };
 
-  render() {
-    return (
-      <div className="container-fluid bg-grad-2 min-height">
-        <div className="row">
-          <div className="col-md-7 pt-3 mx-auto text-center">
-            <div className="bg-light shadow-sm p-2 rounded-lg mt-5">
-              <div className="h1 mt-4 logo">
+  render(){
+    return(
+      <div className="container-fluid bg-grad-2">
+      <div className="row px-0">
+        <div className="col-md-7 mx-auto py-3 text-center min-height dispTable">
+          <div className="dispTableCell">
+            <div className="bg-light shadow-sm p-2 rounded-lg">
+              <div className="display-1 my-2 logo-shadow">
+              <i className="fa fa-instagram"></i>
+              </div>
+              <div className="h1 logo mb-1">
                 <span className="text-danger">Post</span>box
               </div>
-              <form className="p-3">
+              <form className="px-3 py-2">
                 <div className="row m-0 p-0">
                   <div className="col-md-12">
                     <input
@@ -92,7 +96,8 @@ export class Register extends Component {
           </div>
         </div>
       </div>
-    );
+    </div>
+    )
   }
 }
 

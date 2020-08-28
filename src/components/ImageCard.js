@@ -14,7 +14,7 @@ export class Card extends Component {
     this.state = {
       isOpen: false,
       comment: "",
-      modal: false
+      modal: false,
     };
 
     this.commentRef = React.createRef();
@@ -28,14 +28,16 @@ export class Card extends Component {
     }
   }
 
-  componentDidUpdate(prevProp, prevState) {
-    if (prevState.isOpen !== this.state.isOpen) {
-      this.state.isOpen && this.commentRef.current.focus();
-    }
-  }
+  // componentDidUpdate(prevProp, prevState) {
+  //   if (prevState.isOpen !== this.state.isOpen) {
+  //     this.state.isOpen && this.commentRef.current.focus();
+  //   }
+  // }
 
   funToggleComment = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ isOpen: !this.state.isOpen }, () => {
+      this.state.isOpen && this.commentRef.current.focus();
+    });
   };
 
   toggle = () => this.setState({ modal: !this.state.modal });
@@ -50,7 +52,7 @@ export class Card extends Component {
     await this.props.addComment({
       user_id,
       post_id,
-      comment
+      comment,
     });
     this.setState({ comment: "", isOpen: false });
   };
@@ -156,30 +158,34 @@ export class Card extends Component {
                 : ""}
             </div>
             {this.state.isOpen ? (
-              <div className="my-3 row border rounded">
-                <div className="col-9 px-0">
-                  <input
-                    type="text"
-                    ref={this.commentRef}
-                    className="form-control border-0"
-                    placeholder="Write a Comment"
-                    value={this.state.comment}
-                    onChange={(e) => this.setState({ comment: e.target.value })}
-                  />
-                </div>
-                <div className="col-3 pl-1 pr-0">
-                  <button
-                    className="btn btn-light w-100"
-                    onClick={() =>
-                      this.onPost({
-                        user_id: currentUser.userId,
-                        post_id: post._id,
-                        comment: this.state.comment
-                      })
-                    }
-                  >
-                    Post
-                  </button>
+              <div className="my-3 px-3">
+                <div className="row border rounded">
+                  <div className="col-9 px-0">
+                    <input
+                      type="text"
+                      ref={this.commentRef}
+                      className="form-control border-0"
+                      placeholder="Write a Comment"
+                      value={this.state.comment}
+                      onChange={(e) =>
+                        this.setState({ comment: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="col-3 pl-1 pr-0">
+                    <button
+                      className="btn btn-light w-100"
+                      onClick={() =>
+                        this.onPost({
+                          user_id: currentUser.userId,
+                          post_id: post._id,
+                          comment: this.state.comment,
+                        })
+                      }
+                    >
+                      Post
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -240,13 +246,16 @@ export class Card extends Component {
                     <i className="fa fa-bookmark-o fa-2x"></i>
                   </a>
                 </div>
+
                 <div className="mt-2 small font-weight-bold">
                   {post.likedby.length} Likes
                 </div>
+
                 <div className="mt-2">
                   <span className="font-weight-bold mr-2">{post.username}</span>
                   {post.title}
                 </div>
+
                 <div>
                   {postComments && postComments.length > 0 && (
                     <div className="small font-weight-bold mt-2">
@@ -254,6 +263,7 @@ export class Card extends Component {
                     </div>
                   )}
                 </div>
+
                 <div>
                   {postComments && postComments.length > 0
                     ? postComments.map((post, i) => (
@@ -266,31 +276,34 @@ export class Card extends Component {
                       ))
                     : ""}
                 </div>
-                <div className="my-3 mx-1 row border rounded">
-                  <div className="col-9 px-0">
-                    <input
-                      type="text"
-                      className="form-control border-0"
-                      placeholder="Write a Comment"
-                      value={this.state.comment}
-                      onChange={(e) =>
-                        this.setState({ comment: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="col-3 pl-1 pr-0">
-                    <button
-                      className="btn btn-light w-100"
-                      onClick={() =>
-                        this.onPost({
-                          user_id: currentUser.userId,
-                          post_id: post._id,
-                          comment: this.state.comment
-                        })
-                      }
-                    >
-                      Post
-                    </button>
+
+                <div className="my-3 px-2">
+                  <div className="row border rounded">
+                    <div className="col-9 px-0">
+                      <input
+                        type="text"
+                        className="form-control border-0"
+                        placeholder="Write a Comment"
+                        value={this.state.comment}
+                        onChange={(e) =>
+                          this.setState({ comment: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="col-3 pr-0 pl-1">
+                      <button
+                        className="btn btn-light w-100"
+                        onClick={() =>
+                          this.onPost({
+                            user_id: currentUser.userId,
+                            post_id: post._id,
+                            comment: this.state.comment,
+                          })
+                        }
+                      >
+                        Post
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="mb-3 mt-2 text-muted ultra-small">
@@ -298,8 +311,11 @@ export class Card extends Component {
                 </div>
               </div>
               <div className="text-center my-3">
-                <button className="btn btn-sm btn-danger" onClick={this.toggle}>
-                  Close
+                <button
+                  className="btn btn-light btn-sm text-danger rounded-pill p-1"
+                  onClick={this.toggle}
+                >
+                  <i className="fa fa-times px-1 fa-2x"></i>
                 </button>
               </div>
             </ModalBody>
@@ -317,7 +333,7 @@ function mapStateToProps(state, ownProps) {
   return {
     userDetail: state.users[user_id],
     postComments: state.comments[_id],
-    users: state.users
+    users: state.users,
   };
 }
 
@@ -325,5 +341,5 @@ export default connect(mapStateToProps, {
   allUser,
   editPost,
   addComment,
-  postComment
+  postComment,
 })(Card);
