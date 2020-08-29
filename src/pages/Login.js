@@ -2,16 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { verifyUser } from "../actions";
+import { toast } from "react-toastify";
 
 export class Login extends Component {
   state = {
     email: "",
     password: "",
   };
-  onFormLogin = (e) => {
-    e.preventDefault();
+  onFormLogin = () => {
     this.props.verifyUser(this.state, true);
   };
+
+  funValidate=(e)=>{
+    e.preventDefault();
+   if(this.state.email === "" || this.state.password === ""){
+    toast.error('Please fill all the details!')
+   }
+   else{
+      this.onFormLogin()
+   }
+  }
+
   render() {
     return (
       <div className="container-fluid bg-grad-1">
@@ -19,10 +30,10 @@ export class Login extends Component {
           <div className="col-md-5 mx-auto py-3 text-center min-height dispTable">
             <div className="dispTableCell">
               <div className="bg-light shadow-sm p-2 rounded-lg">
-                <div className="display-1 my-2 logo-shadow">
+                <div className="display-1 my-2">
                   <i className="fa fa-instagram"></i>
                 </div>
-                <div className="h1 logo mb-1">
+                <div className="h4 logo mb-1">
                   <span className="text-danger">Post</span>box
                 </div>
                 <form className="px-3 py-2">
@@ -48,7 +59,7 @@ export class Login extends Component {
                     <button
                       type="sumbit"
                       className="btn bg-grad-1 border-0 text-light rounded-pill w-50 mb-2"
-                      onClick={(e) => this.onFormLogin(e)}
+                      onClick={(e) => this.funValidate(e)}
                     >
                       Log In
                     </button>

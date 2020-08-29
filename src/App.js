@@ -31,7 +31,7 @@ function App() {
         <PrivateRoute exact path="/upload" component={Upload} />
         <PrivateRoute exact path="/profile-view/:id" component={ProfileView} />
       </Switch>
-      <ToastContainer position="bottom-left"/>      
+      <ToastContainer position="bottom-left" hideProgressBar/>      
     </Router>
   );
 }

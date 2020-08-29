@@ -312,7 +312,7 @@ export class Card extends Component {
               </div>
               <div className="text-center my-3">
                 <button
-                  className="btn btn-light btn-sm text-danger rounded-pill p-1"
+                  className="btn btn-danger btn-sm rounded-pill p-1"
                   onClick={this.toggle}
                 >
                   <i className="fa fa-times px-1 fa-2x"></i>

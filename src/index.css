@@ -20,10 +20,6 @@ body {
   font-family: "Insta";
 }
 
-.logo-shadow{
-  text-shadow: -3px 3px 3px #DC3545;
-}
-
 .min-height {
   min-height: 100vh;
 }

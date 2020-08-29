@@ -2,19 +2,29 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { createUser } from "../actions";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 export class Register extends Component {
   state = {
     name: "",
     email: "",
     password: "",
-    dob: ""
+    dob: "",
   };
 
-  onFormRegister = (e) => {
-    e.preventDefault();
+  onFormRegister = () => {
     this.props.createUser(this.state);
   };
+
+  funValidate=(e)=>{
+    e.preventDefault();
+   if(this.state.name === "" || this.state.email === "" || this.state.password === "" || this.state.dob === ""){
+    toast.error('Please fill all the details!')
+   }
+   else{
+      this.onFormRegister()
+   }
+  }
 
   render(){
     return(
@@ -23,10 +33,10 @@ export class Register extends Component {
         <div className="col-md-7 mx-auto py-3 text-center min-height dispTable">
           <div className="dispTableCell">
             <div className="bg-light shadow-sm p-2 rounded-lg">
-              <div className="display-1 my-2 logo-shadow">
+              <div className="display-1 my-2">
               <i className="fa fa-instagram"></i>
               </div>
-              <div className="h1 logo mb-1">
+              <div className="h4 logo mb-1">
                 <span className="text-danger">Post</span>box
               </div>
               <form className="px-3 py-2">
@@ -79,7 +89,7 @@ export class Register extends Component {
                   <button
                     type="submit"
                     className="btn bg-grad-2 border-0 text-light rounded-pill w-50 mb-2"
-                    onClick={(e) => this.onFormRegister(e)}
+                    onClick={(e) => this.funValidate(e)}
                   >
                     Register
                   </button>

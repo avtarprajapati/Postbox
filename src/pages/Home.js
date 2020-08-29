@@ -16,6 +16,7 @@ export class Home extends Component {
     this.props.allUser();
     this.props.selectPosts();
   }
+  
 
   funRelogin = () => {
     const token = window.localStorage.getItem("token");

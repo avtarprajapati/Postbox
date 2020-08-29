@@ -72,7 +72,7 @@ export class ProfileView extends Component {
             <div className="col-md-9 profile-title p-4">
               <div className="display-4">{viewUser.name}</div>
               <button
-                className="btn btn-link btn-sm text-secondary text-decoration-none mb-4"
+                className="btn btn-link btn-sm text-primary font-weight-bold text-decoration-none mb-4"
                 onClick={() => this.updateFollow(viewUser._id)}
               >
                 {this.isFollowing(viewUser._id) ? "Following" : "Follow"}

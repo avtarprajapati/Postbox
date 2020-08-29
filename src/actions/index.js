@@ -26,15 +26,19 @@ export const createUser = ({ name, email, password, dob }) => async (
     followers: []
   });
 
-  if (response.data.status !== "OK") {
-    console.log("Please try again");
+  if (response.data.status === "OK") {
+    toast.success('User created succesfully');
+    toast.dark('Please log in to your account')
+
+    dispatch({
+      type: ADD_USER
+    });
+  
+    history.push("/login");
   }
-
-  dispatch({
-    type: ADD_USER
-  });
-
-  history.push("/login");
+  else if(response.data.status === "NOK"){
+    toast.error('Something went wrong!')
+  }
 };
 
 export const allUser = () => async (dispatch) => {
@@ -94,6 +98,7 @@ export const verifyUser = ({ email, password },showToast) => async (dispatch) =>
     // TODO: Make ui to user know this
     history.push("/register");
     toast.error("User not Found!");
+    toast.dark("Create an account first");
   }
 };
 
