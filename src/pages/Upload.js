@@ -10,20 +10,24 @@ export class Upload extends Component {
 
   componentDidUpdate() {
     const { url, title } = this.state;
-    if (url && title) {
+    if (url !== "" && title !== "") {
       this.props.createPost({ url, title });
     }
+    
   }
 
   onUpload = (e) => {
     e.preventDefault();
-    const { file } = this.state;
-    if (file) {
+    const { file ,title } = this.state;
+    if (file && title !== "") {
       const newImage = fireStorage.child(file.name);
       toast.dark("Please wait, Upload in progress !");
       newImage.put(file).then((snap) => {
         newImage.getDownloadURL().then((url) => this.setState({ url: url }));
       });
+    }
+    else{
+      toast.error('Please fill all the fields')
     }
   };
 

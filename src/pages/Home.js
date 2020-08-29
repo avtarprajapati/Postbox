@@ -8,6 +8,7 @@ import ImageCard from "../components/ImageCard";
 import history from "../routes/history";
 
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 
 export class Home extends Component {
   componentDidMount() {
@@ -20,15 +21,16 @@ export class Home extends Component {
 
   funRelogin = () => {
     const token = window.localStorage.getItem("token");
-    if (token){
+    try{
       let decoded = jwtDecode(token);
       const {email,password} = decoded.data;
       this.props.verifyUser({ email, password },false);
     }
-    else{
-      history.push('/register');
+    catch{
+      history.push('/login');
+      toast.error('Something went wrong!');
+      toast.dark('Please login again!')
     }
-    
   };
 
   viewProfile = (id) => {
@@ -70,9 +72,9 @@ export class Home extends Component {
                       <img
                         src={require("../assets/verified.png")}
                         alt="profile-pic"
-                        className="mb-1 ml-1"
-                        height="30"
-                        width="30"
+                        className="mb-1"
+                        height="40"
+                        width="40"
                       />
                     </div>
 

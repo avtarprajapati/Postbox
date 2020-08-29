@@ -11,8 +11,8 @@ export class Title extends Component {
   }
 
   onLogOut = () => {
-    window.localStorage.removeItem("token");
-    history.push("/");
+    localStorage.removeItem("token");
+    history.push("/login");
   };
 
   render() {
