@@ -76,38 +76,34 @@ export const editUser = (upateValue) => async (dispatch) => {
 export const verifyUser = ({ email, password }, showToast) => async (
   dispatch
 ) => {
-  try {
-    const response = await postBox.post("/verify-user", {
-      email,
-      password,
-    });
+  const response = await postBox.post("/verify-user", {
+    email,
+    password,
+  });
 
-    const token = response.data.token;
-    const currentUser = JSON.stringify({
-      name: response.data.name,
-      userId: response.data._id,
-    });
+  const token = response.data.token;
+  const currentUser = JSON.stringify({
+    name: response.data.name,
+    userId: response.data._id,
+  });
 
-    // set token in localStorage after verify user
+  // set token in localStorage after verify user
 
-    window.localStorage.setItem("token", token);
-    window.localStorage.setItem("currentUser", currentUser);
+  window.localStorage.setItem("token", token);
+  window.localStorage.setItem("currentUser", currentUser);
 
-    if (response.data.status === "OK") {
-      dispatch(allUser());
+  if (response.data.status === "OK") {
+    dispatch(allUser());
 
-      history.push("/");
-      if (showToast === true) {
-        toast.dark("Welcome to Postbox " + response.data.name);
-      }
-    } else {
-      // TODO: Make ui to user know this
-      history.push("/register");
-      toast.error("User not Found!");
-      toast.dark("Create an account first");
+    history.push("/");
+    if (showToast === true) {
+      toast.dark("Welcome to Postbox " + response.data.name);
     }
-  } catch (error) {
-    history.push("/error");
+  } else {
+    // TODO: Make ui to user know this
+    history.push("/register");
+    toast.error("User not Found!");
+    toast.dark("Create an account first");
   }
 };
 
