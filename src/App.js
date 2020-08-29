@@ -32,11 +32,8 @@ function App() {
         <PrivateRoute exact path="/error" component={ErrorPage} />
         <PrivateRoute exact path="/profile-view/:id" component={ProfileView} />
       </Switch>
-<<<<<<< HEAD
       <ToastContainer position="bottom-left" hideProgressBar/>      
-=======
-      <ToastContainer position="bottom-left" />
->>>>>>> 0a311e66a3560ba447e20b95e0b580e2787226ce
+
     </Router>
   );
 }
