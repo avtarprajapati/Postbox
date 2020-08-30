@@ -57,6 +57,39 @@ export class Home extends Component {
                 {followingListInfo.map((post) => (
                   <ImageCard post={post} key={post._id} />
                 ))}
+                {followingListInfo && followingListInfo.length === 0 ? (
+                  <div className="mt-2">
+                    <div className="h5 px-2 text-muted mb-3">
+                      Follow some users first!
+                    </div>
+                    {suggestionList.reverse().map((user) => (
+                      <div className="p-3" key={user._id}>
+                        <button
+                          onClick={(e) => this.viewProfile(user._id)}
+                          className="btn btn-link text-dark text-decoration-none p-1"
+                        >
+                          <img
+                            src={user.imgurl}
+                            alt="user"
+                            className="bg-grad-1 mr-3 rounded-pill p-1 mb-1"
+                            height="80"
+                            width="80"
+                          />
+                          <span className="h4 logo">
+                            {user.name}
+                            <img
+                              src={require("../assets/verified.png")}
+                              alt="profile-pic"
+                              className="mb-1"
+                              height="30"
+                              width="30"
+                            />
+                          </span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
               <div className="col-md-5">
                 <div className="suggestions">
