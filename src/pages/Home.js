@@ -11,9 +11,10 @@ import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 
 export class Home extends Component {
+  
   componentDidMount() {
-    this.funRelogin();
     window.scrollTo(0, 0);
+    this.funRelogin();
     this.props.allUser();
     this.props.selectPosts();
   }

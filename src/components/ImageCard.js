@@ -6,6 +6,7 @@ import history from "../routes/history";
 import { Modal, ModalBody } from "reactstrap";
 
 import LazyLoad from "react-lazyload";
+import { toast } from "react-toastify";
 
 export class Card extends Component {
   constructor(props) {
@@ -49,12 +50,18 @@ export class Card extends Component {
   };
 
   onPost = async (user_id, post_id, comment) => {
-    await this.props.addComment({
-      user_id,
-      post_id,
-      comment,
-    });
-    this.setState({ comment: "", isOpen: false });
+    if(this.state.comment !== ""){
+      await this.props.addComment({
+        user_id,
+        post_id,
+        comment,
+      });
+      this.setState({ comment: "", isOpen: false });
+    }
+    else{
+      toast.error('Please add a valid comment')
+    }
+
   };
 
   onLike = (post) => {

@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 export const createUser = ({ name, email, password, dob }) => async (
   dispatch
 ) => {
+  toast.dark("Please wait!");
   const response = await postBox.post("/add-user", {
     name,
     email,
@@ -27,8 +28,7 @@ export const createUser = ({ name, email, password, dob }) => async (
   });
 
   if (response.data.status === "OK") {
-    toast.success("User created succesfully");
-    toast.dark("Please log in to your account");
+    toast.success("User created succesfully. Please Log in !");
 
     dispatch({
       type: ADD_USER,
@@ -76,6 +76,9 @@ export const editUser = (upateValue) => async (dispatch) => {
 export const verifyUser = ({ email, password }, showToast) => async (
   dispatch
 ) => {
+  if (showToast === true) {
+    toast.dark("Please wait!");
+  }
   const response = await postBox.post("/verify-user", {
     email,
     password,
@@ -95,8 +98,8 @@ export const verifyUser = ({ email, password }, showToast) => async (
   if (response.data.status === "OK") {
     dispatch(allUser());
 
-    history.push("/");
     if (showToast === true) {
+      history.push("/");
       toast.dark("Welcome to Postbox " + response.data.name);
     }
   } else {
